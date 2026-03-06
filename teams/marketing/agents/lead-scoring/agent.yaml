@@ -1,0 +1,22 @@
+name: lead-scoring
+description: Evaluates prospect signals to identify and prioritize high-potential leads
+model: claude-sonnet-4-20250514
+temperature: 0.2  # Scoring needs precision
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/audience/system-prompt.md  # ICP and persona alignment
+
+capabilities:
+  - signal_interpretation
+  - scoring_framework_design
+  - threshold_recommendations
+  - decay_recency_modeling
+  - segment_specific_scoring
+
+dependencies:
+  - audience  # ICP and persona definitions
+
+output_format: markdown
+output_target: stdout

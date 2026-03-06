@@ -1,0 +1,26 @@
+name: campaign-orchestrator
+description: Coordinates cross-channel campaign planning, asset requirements, and scheduling
+model: claude-sonnet-4-20250514
+temperature: 0.4  # Structured coordination needs precision with some creative planning
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+
+capabilities:
+  - campaign_planning
+  - asset_coordination
+  - scheduling
+  - version_control
+  - cross_channel_alignment
+
+dependencies:
+  - content       # Assigns copy/content tasks
+  - creative      # Assigns visual/video tasks
+  - sdr           # Coordinates outbound timing
+  - seo           # Aligns organic content themes
+  - audience      # Uses segmentation for targeting
+  - analytics     # Uses measurement frameworks
+
+output_format: markdown
+output_target: stdout

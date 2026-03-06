@@ -1,0 +1,24 @@
+name: outbound-sdr
+description: Generates prospecting strategies, email sequences, and follow-up recommendations
+model: claude-sonnet-4-20250514
+temperature: 0.7  # Needs creativity for copy, balanced with structure
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/audience/system-prompt.md  # Persona alignment
+  - agents/content/system-prompt.md   # Voice consistency
+
+capabilities:
+  - prospecting_strategy
+  - sequence_design
+  - email_copy
+  - follow_up_logic
+  - objection_handling
+
+dependencies:
+  - audience  # Needs persona definitions
+  - content   # Needs voice/tone alignment
+
+output_format: markdown
+output_target: stdout

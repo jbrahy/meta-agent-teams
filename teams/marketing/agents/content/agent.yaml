@@ -1,0 +1,23 @@
+name: content-generation
+description: Produces marketing copy, social posts, blog content adapted to channel and persona
+model: claude-sonnet-4-20250514
+temperature: 0.8  # Highest creativity setting — copy needs to be original
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/audience/system-prompt.md  # Persona definitions
+  - agents/seo/system-prompt.md       # Keyword targets
+
+capabilities:
+  - long_form_content
+  - short_form_copy
+  - channel_adaptation
+  - messaging_frameworks
+
+dependencies:
+  - audience  # Persona and segment definitions
+  - seo       # Keyword strategy and content briefs
+
+output_format: markdown
+output_target: stdout

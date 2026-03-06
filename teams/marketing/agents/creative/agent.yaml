@@ -1,0 +1,23 @@
+name: creative-multimedia
+description: Develops creative briefs, video concepts, and visual direction
+model: claude-sonnet-4-20250514
+temperature: 0.8  # Creative work needs high creativity
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/audience/system-prompt.md  # Persona alignment
+
+capabilities:
+  - creative_briefs
+  - video_concepts
+  - visual_direction
+  - format_adaptation
+  - ab_variant_design
+
+dependencies:
+  - audience  # Persona definitions for targeting
+  - content   # Messaging alignment
+
+output_format: markdown
+output_target: stdout

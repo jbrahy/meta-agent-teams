@@ -1,0 +1,76 @@
+{
+  "metadata": {
+    "created": "2025-03-06",
+    "last_updated": "2025-03-06",
+    "current_cycle": 0,
+    "notes": "Initial baseline — no feedback cycles completed yet"
+  },
+  "agents": {
+    "campaign-orchestrator": {
+      "version": "1.0.0",
+      "cycles_completed": 0,
+      "scores": [],
+      "rolling_average": null,
+      "trend": null
+    },
+    "content": {
+      "version": "1.0.0",
+      "cycles_completed": 0,
+      "scores": [],
+      "rolling_average": null,
+      "trend": null
+    },
+    "analytics": {
+      "version": "1.0.0",
+      "cycles_completed": 0,
+      "scores": [],
+      "rolling_average": null,
+      "trend": null
+    },
+    "lead-scoring": {
+      "version": "1.0.0",
+      "cycles_completed": 0,
+      "scores": [],
+      "rolling_average": null,
+      "trend": null
+    },
+    "audience": {
+      "version": "1.0.0",
+      "cycles_completed": 0,
+      "scores": [],
+      "rolling_average": null,
+      "trend": null
+    },
+    "creative": {
+      "version": "1.0.0",
+      "cycles_completed": 0,
+      "scores": [],
+      "rolling_average": null,
+      "trend": null
+    },
+    "seo": {
+      "version": "1.0.0",
+      "cycles_completed": 0,
+      "scores": [],
+      "rolling_average": null,
+      "trend": null
+    },
+    "sdr": {
+      "version": "1.0.0",
+      "cycles_completed": 0,
+      "scores": [],
+      "rolling_average": null,
+      "trend": null
+    }
+  },
+  "score_schema": {
+    "rating": "1-5 from human feedback",
+    "dimensions": {
+      "relevance": "Did the output address the actual need?",
+      "accuracy": "Was the information/recommendation correct?",
+      "actionability": "Could the human execute immediately?",
+      "coherence": "Did it align with other agents' output?",
+      "voice": "Did it match brand/tone guidelines?"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+name: seo-content-strategist
+description: Researches keywords, analyzes competitors, produces content briefs for organic visibility
+model: claude-sonnet-4-20250514
+temperature: 0.4  # Research-oriented with some strategic creativity
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/audience/system-prompt.md  # Persona language alignment
+
+capabilities:
+  - keyword_research
+  - competitive_analysis
+  - content_briefs
+  - technical_seo
+  - performance_monitoring
+
+dependencies:
+  - audience  # Persona language for keyword alignment
+
+output_format: markdown
+output_target: stdout

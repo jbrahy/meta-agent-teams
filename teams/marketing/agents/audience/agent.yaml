@@ -1,0 +1,20 @@
+name: audience-segmentation
+description: Develops personas, segments audiences, and adapts messaging frameworks
+model: claude-sonnet-4-20250514
+temperature: 0.5  # Balance between analytical precision and creative persona development
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+
+capabilities:
+  - persona_development
+  - segmentation_strategy
+  - messaging_adaptation
+  - dynamic_segmentation
+  - persona_validation
+
+dependencies: []  # Foundational agent — others depend on its output
+
+output_format: markdown
+output_target: stdout
