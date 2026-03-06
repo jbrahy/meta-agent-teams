@@ -108,6 +108,7 @@ echo ""
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TEAMS_DIR="${SCRIPT_DIR}/../teams"
 mkdir -p "$TEAMS_DIR"
+TEAMS_DIR="$(cd "$TEAMS_DIR" && pwd)"
 
 # ============================================================================
 # STEP 1: Team Identity

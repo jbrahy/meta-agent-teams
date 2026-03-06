@@ -43,7 +43,7 @@ ask_yn() {
 }
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-TEAMS_DIR="${SCRIPT_DIR}/../teams"
+TEAMS_DIR="$(cd "${SCRIPT_DIR}/../teams" 2>/dev/null && pwd || echo "${SCRIPT_DIR}/../teams")"
 
 usage() {
     echo "Usage: $(basename "$0") <team-slug> [feedback-file]"

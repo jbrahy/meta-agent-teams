@@ -29,7 +29,7 @@ die()     { echo -e "${RED}✗ $1${NC}" >&2; exit 1; }
 
 # --- Resolve paths ---
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-TEAMS_DIR="${SCRIPT_DIR}/../teams"
+TEAMS_DIR="$(cd "${SCRIPT_DIR}/../teams" 2>/dev/null && pwd || echo "${SCRIPT_DIR}/../teams")"
 
 # --- Usage ---
 usage() {

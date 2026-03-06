@@ -26,7 +26,7 @@ info()    { echo -e "${DIM}$1${NC}"; }
 die()     { echo -e "${RED}✗ $1${NC}" >&2; exit 1; }
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-TEAMS_DIR="${SCRIPT_DIR}/../teams"
+TEAMS_DIR="$(cd "${SCRIPT_DIR}/../teams" 2>/dev/null && pwd || echo "${SCRIPT_DIR}/../teams")"
 
 # --- List all teams if no argument ---
 if [[ $# -lt 1 ]]; then
