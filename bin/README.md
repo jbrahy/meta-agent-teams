@@ -1,6 +1,6 @@
 # bin/ — Meta-Agent Team Tools
 
-Command-line tools for building and operating agent teams. All scripts run from this directory and operate on teams stored in `bin/teams/<team-slug>/`.
+Command-line tools for building and operating agent teams. All scripts run from this directory and operate on teams stored in `teams/<team-slug>/` at the repo root.
 
 ## Prerequisites
 
@@ -98,42 +98,43 @@ Dashboard view. Without arguments, lists all teams. With a team slug, shows:
 ## Directory Structure (after scaffolding)
 
 ```
-bin/
-├── teams/
-│   └── sales/
-│       ├── README.md
-│       ├── shared/
-│       │   ├── constitution.md
-│       │   └── glossary.md
-│       ├── meta-agent/
-│       │   ├── system-prompt.md
-│       │   ├── agent.yaml
-│       │   └── CHANGELOG.md
-│       ├── auditor/
-│       │   ├── system-prompt.md
-│       │   ├── agent.yaml
-│       │   └── CHANGELOG.md
-│       ├── agents/
-│       │   └── <agent-name>/
-│       │       ├── system-prompt.md
-│       │       ├── agent.yaml
-│       │       └── CHANGELOG.md
-│       ├── feedback/
-│       │   ├── template.md
-│       │   └── 2026-03/
-│       │       └── 2026-03-06.md
-│       └── evals/
-│           ├── baseline-scores.json
-│           └── cycle-1/
-│               ├── evolution-proposal.md
-│               └── audit-report.md
-├── build-team-template.sh
-├── run-agent.sh
-├── new-feedback.sh
-├── run-cycle.sh
-├── update-scores.sh
-├── team-status.sh
-└── README.md          ← you are here
+meta-agent-teams/
+├── bin/
+│   ├── build-team-template.sh
+│   ├── run-agent.sh
+│   ├── new-feedback.sh
+│   ├── run-cycle.sh
+│   ├── update-scores.sh
+│   ├── team-status.sh
+│   └── README.md          ← you are here
+└── teams/
+    └── sales/
+        ├── README.md
+        ├── shared/
+        │   ├── constitution.md
+        │   └── glossary.md
+        ├── meta-agent/
+        │   ├── system-prompt.md
+        │   ├── agent.yaml
+        │   └── CHANGELOG.md
+        ├── auditor/
+        │   ├── system-prompt.md
+        │   ├── agent.yaml
+        │   └── CHANGELOG.md
+        ├── agents/
+        │   └── <agent-name>/
+        │       ├── system-prompt.md
+        │       ├── agent.yaml
+        │       └── CHANGELOG.md
+        ├── feedback/
+        │   ├── template.md
+        │   └── 2026-03/
+        │       └── 2026-03-06.md
+        └── evals/
+            ├── baseline-scores.json
+            └── cycle-1/
+                ├── evolution-proposal.md
+                └── audit-report.md
 ```
 
 ## Notes

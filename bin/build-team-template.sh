@@ -106,7 +106,7 @@ echo ""
 
 # --- Determine output root ---
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-TEAMS_DIR="${SCRIPT_DIR}/teams"
+TEAMS_DIR="${SCRIPT_DIR}/../teams"
 mkdir -p "$TEAMS_DIR"
 
 # ============================================================================

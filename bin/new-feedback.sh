@@ -27,7 +27,7 @@ warn()    { echo -e "${YELLOW}⚠ $1${NC}"; }
 die()     { echo -e "${RED}✗ $1${NC}" >&2; exit 1; }
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-TEAMS_DIR="${SCRIPT_DIR}/teams"
+TEAMS_DIR="${SCRIPT_DIR}/../teams"
 
 usage() {
     echo "Usage: $(basename "$0") <team-slug> [cycle-number]"
