@@ -25,10 +25,10 @@ Interactive scaffolder that generates a complete agent team directory. Walks you
 Runs any agent with automatic context loading. Parses `agent.yaml` to find `context_sources`, assembles the system prompt with all referenced files (constitution, glossary, dependent agent prompts), and invokes Claude. Works for specialist agents, the meta-agent, and the auditor.
 
 ```bash
-./run-agent.sh devops incident-response                          # interactive session
-./run-agent.sh devops incident-response "Triage this alert..."   # one-shot
-./run-agent.sh devops meta-agent                                 # run the meta-agent
-./run-agent.sh devops auditor                                    # run the auditor
+./run-agent.sh marketing sdr                                    # interactive session
+./run-agent.sh marketing sdr "Draft a cold outreach email..."   # one-shot
+./run-agent.sh marketing meta-agent                             # run the meta-agent
+./run-agent.sh marketing auditor                                # run the auditor
 ```
 
 ### `new-feedback.sh <team-slug> [cycle-number]`
@@ -36,8 +36,8 @@ Runs any agent with automatic context loading. Parses `agent.yaml` to find `cont
 Creates a dated feedback file from the team's template. Auto-detects the current cycle number from `baseline-scores.json`. If a file already exists for today, offers to append a new item. Opens the file in `$EDITOR`, VS Code, or vim.
 
 ```bash
-./new-feedback.sh devops        # auto-detect cycle
-./new-feedback.sh devops 3      # explicit cycle number
+./new-feedback.sh marketing        # auto-detect cycle
+./new-feedback.sh marketing 3      # explicit cycle number
 ```
 
 ### `run-cycle.sh <team-slug> [feedback-file]`
@@ -54,8 +54,8 @@ Orchestrates the full evolution cycle:
 All artifacts are saved under `evals/cycle-N/`.
 
 ```bash
-./run-cycle.sh devops                                    # uses latest feedback
-./run-cycle.sh devops teams/devops/feedback/2026-03/2026-03-06.md   # specific file
+./run-cycle.sh marketing                                                        # uses latest feedback
+./run-cycle.sh marketing ../teams/marketing/feedback/2026-03/2026-03-06.md      # specific file
 ```
 
 ### `update-scores.sh <team-slug> [cycle-number]`
@@ -63,8 +63,8 @@ All artifacts are saved under `evals/cycle-N/`.
 Interactive scoring after a cycle. Walks through each agent asking for a 1–5 overall rating and optional per-dimension scores. Calculates rolling averages (last 5 cycles) and trend direction (improving/stable/declining). Updates `evals/baseline-scores.json`.
 
 ```bash
-./update-scores.sh devops       # auto-detect cycle
-./update-scores.sh devops 3     # explicit cycle
+./update-scores.sh marketing       # auto-detect cycle
+./update-scores.sh marketing 3     # explicit cycle
 ```
 
 ### `team-status.sh [team-slug]`
@@ -79,23 +79,23 @@ Dashboard view. Without arguments, lists all teams. With a team slug, shows:
 - Quick-reference commands
 
 ```bash
-./team-status.sh          # list all teams
-./team-status.sh devops   # full dashboard
+./team-status.sh              # list all teams
+./team-status.sh marketing    # full dashboard
 ```
 
 ## Typical Workflow
 
 ```
-1. Scaffold        ./build-team-template.sh sales
-2. Run agents      ./run-agent.sh sales content-writer "Draft an outreach email"
-3. Record feedback ./new-feedback.sh sales
-4. Evolve          ./run-cycle.sh sales
-5. Score           ./update-scores.sh sales
-6. Review          ./team-status.sh sales
+1. Scaffold        ./build-team-template.sh marketing
+2. Run agents      ./run-agent.sh marketing sdr "Draft a cold outreach email"
+3. Record feedback ./new-feedback.sh marketing
+4. Evolve          ./run-cycle.sh marketing
+5. Score           ./update-scores.sh marketing
+6. Review          ./team-status.sh marketing
 7. Repeat from 2
 ```
 
-## Directory Structure (after scaffolding)
+## Directory Structure
 
 ```
 meta-agent-teams/
@@ -106,9 +106,18 @@ meta-agent-teams/
 │   ├── run-cycle.sh
 │   ├── update-scores.sh
 │   ├── team-status.sh
-│   └── README.md          ← you are here
+│   └── README.md              ← you are here
+├── docs/
+│   ├── architecture.md
+│   ├── getting-started.md
+│   └── domain-guide.md
+├── prompt/
+│   └── agent-team-builder.md
+├── skill/
+│   ├── SKILL.md
+│   └── references/
 └── teams/
-    └── sales/
+    └── marketing/             ← example team (ships with repo)
         ├── README.md
         ├── shared/
         │   ├── constitution.md
@@ -128,11 +137,11 @@ meta-agent-teams/
         │       └── CHANGELOG.md
         ├── feedback/
         │   ├── template.md
-        │   └── 2026-03/
-        │       └── 2026-03-06.md
+        │   └── YYYY-MM/
+        │       └── YYYY-MM-DD.md
         └── evals/
             ├── baseline-scores.json
-            └── cycle-1/
+            └── cycle-N/
                 ├── evolution-proposal.md
                 └── audit-report.md
 ```
