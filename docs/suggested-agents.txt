@@ -1,0 +1,100 @@
+AI evaluation / red-team team
+Academic advising team
+Account executive / sales closing team
+Accounting operations team
+Admissions / enrollment team
+Analytics / BI team
+Architecture / project design team
+Back-end engineering team
+Biotech research operations team
+Brand strategy team
+Business operations team
+Care coordination team
+Chief of Staff / strategy operations team
+Clinical documentation improvement team
+Clinical trial operations team
+Community management team
+Competitive intelligence team
+Compliance and risk team
+Construction estimating team
+Content marketing team
+Corporate development / M&A team
+Creative design team
+Curriculum design team
+Customer onboarding team
+Customer success team
+Customer support team
+Data engineering team
+Data science team
+Demand generation team
+Design systems team
+DevOps / SRE team
+E-commerce merchandising team
+Event planning and production team
+Executive communications team
+FP&A team
+Front-end engineering team
+Full-stack engineering team
+Game design / narrative team
+Grant writing team
+Growth marketing team
+Hospitality guest experience team
+IT help desk team
+Implementation / professional services team
+Incident response / crisis management team
+Instructional design team
+Internal tools / automation team
+Investor relations team
+Knowledge management / documentation team
+Lab management team
+Learning and development team
+Legal operations / contracts team
+Lifecycle/CRM marketing team
+Localization / translation team
+Logistics / dispatch team
+ML engineering team
+Manufacturing process improvement team
+Manufacturing quality team
+Marketplace operations team
+Medical coding team
+Mobile engineering team
+Newsroom / editorial team
+Nonprofit program operations team
+Open-source maintenance / community team
+PR and communications team
+Partner / channel sales team
+People operations team
+Pharmacy / medical information team
+Platform engineering team
+Podcast production team
+Policy research team
+Procurement / sourcing team
+Product discovery team
+Product management team
+Product marketing team
+Program management / PMO team
+Property management team
+Public affairs / advocacy team
+Publishing operations team
+QA / testing team
+Real estate acquisitions team
+Recruiting team
+Regulatory affairs team
+Restaurant operations team
+Retention and renewals team
+Revenue cycle management team
+Revenue operations team
+SEO strategy team
+Sales development team
+Scientific literature review team
+Security engineering team
+Social media team
+Solutions engineering team
+Student success team
+Supply chain planning team
+Sustainability / ESG reporting team
+Travel planning / concierge team
+Trust and safety team
+UX research team
+UX writing / content design team
+Video production team
