@@ -1,13 +1,14 @@
-AI evaluation / red-team team
+AI evaluation
 Academic advising team
-Account executive / sales closing team
+Account executive
 Accounting operations team
-Admissions / enrollment team
+Admissions
 Adoption insight team — spots which features actually create stickiness
-Analytics / BI team
-Architecture / project design team
+Analytics
+Architecture
 Assumption tracker team — records assumptions and checks them over time
 Audience questions team — collects recurring questions into strategic signals
+BI team
 Back-end engineering team
 Beta feedback team — highlights what matters versus noise
 Biotech research operations team
@@ -15,9 +16,10 @@ Blind spot finder team — points out assumptions the owner may be missing
 Bottleneck finder team — shows where work gets stuck repeatedly
 Brand strategy team
 Business operations team
+CRM marketing team
 Calendar optimization team — spots overload, context switching, and bad meeting patterns
 Care coordination team
-Chief of Staff / strategy operations team
+Chief of Staff
 Chief-of-staff lite team — organizes decisions, commitments, and open loops
 Clinical documentation improvement team
 Clinical trial operations team
@@ -33,7 +35,7 @@ Content gap team — shows what the owner has not explained clearly yet
 Content idea team — turns conversations and notes into content opportunities
 Content marketing team
 Content repurposing team — finds ways to reuse old material effectively
-Corporate development / M&A team
+Corporate development
 Creative design team
 Curriculum design team
 Customer journey friction team — shows where trust drops or effort spikes
@@ -49,10 +51,11 @@ Decision journal team — tracks decisions and later shows which ones worked
 Delegation advisor team — identifies work the owner should stop doing personally
 Demand generation team
 Design systems team
-DevOps / SRE team
+DevOps
 Discovery question team — suggests better questions for future calls
 Documentation gap team — shows what users keep needing explained
 E-commerce merchandising team
+ESG reporting team
 Energy management team — learns when the owner does best work and plans around it
 Event planning and production team
 Exception analysis team — studies edge cases for deeper lessons
@@ -68,7 +71,7 @@ Follow-up coach team — suggests who to reconnect with and why
 Founder reflection team — converts journal entries into strategic insights
 Front-end engineering team
 Full-stack engineering team
-Game design / narrative team
+Game design
 Goal alignment team — checks whether current work matches stated goals
 Grant writing team
 Growth marketing team
@@ -77,24 +80,25 @@ Handoff quality team — improves transitions between people or systems
 Hospitality guest experience team
 IT help desk team
 Idea capture team — organizes raw thoughts into themes and opportunities
-Implementation / professional services team
+Implementation
 Inbox advisory team — summarizes important themes from email without replying
-Incident response / crisis management team
+Incident response
 Insight mining team — pulls hidden patterns from notes, chats, and documents
 Instructional design team
-Internal tools / automation team
+Internal tools
 Investor relations team
-Knowledge management / documentation team
+Knowledge management
 Lab management team
 Lead quality team — finds patterns in which leads convert best
 Learning and development team
 Learning loop team — captures lessons from projects and turns them into rules
-Legal operations / contracts team
+Legal operations
 Leverage finder team — finds where one action could create outsized results
-Lifecycle/CRM marketing team
-Localization / translation team
-Logistics / dispatch team
+Lifecycle
+Localization
+Logistics
 Long-term compounding team — identifies small repeated actions with big future payoff
+M&A team
 ML engineering team
 Manufacturing process improvement team
 Manufacturing quality team
@@ -105,17 +109,18 @@ Meeting prep team — prepares talking points, questions, and likely risks
 Mobile engineering team
 Momentum tracking team — shows what is gaining traction and what is stalling
 Newsletter insight team — suggests topics based on audience reactions
-Newsroom / editorial team
+Newsroom
 Nonprofit program operations team
 Objection analysis team — finds the most common hesitation points
 Offer refinement team — suggests simpler, clearer offers
 Onboarding insight team — identifies where new users get confused
-Open-source maintenance / community team
+Open-source maintenance
 Operations clarity team — turns messy processes into simple playbooks
 Opportunity spotting team — surfaces adjacent ideas worth exploring
 Overcommitment detector team — warns when the owner has said yes too often
+PMO team
 PR and communications team
-Partner / channel sales team
+Partner
 Partnership fit team — identifies who is actually worth talking to
 Pattern recognition team — notices recurring wins and recurring failures
 People operations team
@@ -123,28 +128,28 @@ Personal KPI team — watches a few self-chosen metrics and flags drift
 Personal board of advisors team — simulates multiple strategic viewpoints
 Personal power team — combines priorities, patterns, risks, and opportunities into one ongoing
 Perspective shift team — reframes problems from customer, operator, and investor angles
-Pharmacy / medical information team
+Pharmacy
 Pipeline insight team — spots bottlenecks in movement from stage to stage
 Platform engineering team
 Podcast production team
 Policy research team
 Pricing perception team — watches reactions to pricing and packaging
 Process drift team — detects when real behavior no longer matches the process
-Procurement / sourcing team
+Procurement
 Product confusion team — spots where users misunderstand the product
 Product discovery team
 Product feedback team — clusters product requests and pain points
 Product management team
 Product marketing team
 Product positioning team — refines how the product should be described
-Program management / PMO team
+Program management
 Property management team
 Proposal improvement team — identifies what makes strong proposals stronger
-Public affairs / advocacy team
+Public affairs
 Publishing operations team
-QA / testing team
+QA
 Quality review team — checks outputs against the owner’s standards
-Reading notes synthesis team — turns books/articles into practical advice
+Reading notes synthesis team — turns books
 Real estate acquisitions team
 Recruiting team
 Regulatory affairs team
@@ -161,6 +166,7 @@ Risk check team — highlights quiet risks in plans and commitments
 Roadmap sanity-check team — compares roadmap ideas to real signals
 SEO strategy team
 SOP improvement team — learns from exceptions and updates procedures
+SRE team
 Sales call review team — distills what messaging is landing or failing
 Sales development team
 Sales script evolution team — improves talk tracks from real outcomes
@@ -179,17 +185,17 @@ Strategic question team — proposes better questions the owner should be asking
 Student success team
 Supply chain planning team
 Support trend team — groups complaints into product or process insights
-Sustainability / ESG reporting team
+Sustainability
 Task triage team — ranks open tasks by urgency, value, and momentum
 Testimonial mining team — extracts positioning language from praise
 Thought leadership team — maps emerging ideas worth developing publicly
 Time audit team — reviews where time actually went versus intention
 Tradeoff advisor team — explains the downside of each option clearly
-Travel planning / concierge team
+Travel planning
 Trend interpretation team — translates external trends into local implications
 Trust and safety team
 UX research team
-UX writing / content design team
+UX writing
 User research synthesis team — condenses interviews into insights
 Video production team
 Voice consistency team — keeps messaging aligned with the owner’s tone and beliefs
@@ -198,3 +204,26 @@ Weekly planning team — turns goals and obligations into a clean weekly plan
 Win-loss insight team — compares successful and failed deals for patterns
 Workflow simplification team — identifies steps users do not need
 Writing coach team — learns the owner’s style and improves drafts
+advocacy team
+articles into practical advice
+automation team
+channel sales team
+community team
+concierge team
+content design team
+contracts team
+crisis management team
+dispatch team
+documentation team
+editorial team
+enrollment team
+medical information team
+narrative team
+professional services team
+project design team
+red-team team
+sales closing team
+sourcing team
+strategy operations team
+testing team
+translation team

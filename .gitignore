@@ -11,3 +11,4 @@ Thumbs.db
 # Temporary
 *.tmp
 *.bak
+tmp/
