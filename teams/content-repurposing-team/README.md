@@ -46,18 +46,15 @@ This team helps produce, refine, and evaluate Content Repurposing Team initiativ
 ## Getting Started
 
 ```bash
-# Run an agent
-claude --system-prompt agents/intake-and-triage/system-prompt.md
+# Run an agent (uses provider from .agent-teams.env or AGENT_PROVIDER env var)
+../../bin/run-agent.sh content-repurposing-team audience-and-insight-research
+
+# Or paste the system prompt into any LLM:
+# agents/audience-and-insight-research/system-prompt.md
 
 # Provide feedback
 cp feedback/template.md feedback/$(date +%Y-%m)/$(date +%Y-%m-%d).md
 
-# Process feedback with the meta-agent
-claude --system-prompt meta-agent/system-prompt.md
-
-# Audit proposed changes
-claude --system-prompt auditor/system-prompt.md
-
-# Commit approved changes
-git add -A && git commit -m "Cycle N: [summary]"
+# Run the full feedback cycle (meta-agent → auditor → approve → commit)
+../../bin/run-cycle.sh content-repurposing-team
 ```

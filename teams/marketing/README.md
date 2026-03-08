@@ -40,7 +40,7 @@ A supervised, iterative agent development system where a **meta-agent** manages 
 
 ## Workflow
 
-1. Run an agent via Claude Code → receive advisory output
+1. Run an agent (`../../bin/run-agent.sh marketing <agent>`) → receive advisory output
 2. Evaluate the output, execute what's useful
 3. Record structured feedback in `/feedback/YYYY-MM/YYYY-MM-DD.md`
 4. Meta-agent processes feedback, proposes agent modifications
@@ -68,15 +68,15 @@ A supervised, iterative agent development system where a **meta-agent** manages 
 ## Getting Started
 
 ```bash
-# Run any agent via Claude Code
-claude --system-prompt agents/sdr/system-prompt.md
+# Run an agent (uses provider from .agent-teams.env or AGENT_PROVIDER env var)
+../../bin/run-agent.sh marketing analytics
 
-# Provide feedback after reviewing output
-# Edit feedback/YYYY-MM/YYYY-MM-DD.md
+# Or paste the system prompt into any LLM:
+# agents/analytics/system-prompt.md
 
-# Run the meta-agent to process feedback and propose changes
-claude --system-prompt meta-agent/system-prompt.md
+# Provide feedback
+cp feedback/template.md feedback/$(date +%Y-%m)/$(date +%Y-%m-%d).md
 
-# Run the auditor to review proposed changes
-claude --system-prompt auditor/system-prompt.md
+# Run the full feedback cycle (meta-agent → auditor → approve → commit)
+../../bin/run-cycle.sh marketing
 ```

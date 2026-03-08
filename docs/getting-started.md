@@ -4,16 +4,38 @@ This guide walks you through your first feedback cycle with an existing team.
 
 ## Prerequisites
 
-You need access to a capable LLM. The framework is designed for Claude Code but works with any LLM that can accept a system prompt.
+You need access to a capable LLM. The framework works with any LLM that can accept a system prompt.
 
-**Option A: Claude Code (recommended)**
+**Option A: Claude Code (default)**
 ```bash
-# Install Claude Code if you haven't
 npm install -g @anthropic-ai/claude-code
 ```
 
-**Option B: Any LLM**
-Copy-paste agent system prompts as the first message or system prompt in your LLM of choice.
+**Option B: Ollama (local, no API key)**
+```bash
+# Install from https://ollama.ai, then:
+ollama pull llama3.2
+```
+
+**Option C: llm tool (multi-provider)**
+```bash
+pip install llm
+# Then install plugins for your provider, e.g.:
+# pip install llm-claude-3   (Anthropic)
+# pip install llm-ollama     (Ollama)
+```
+
+**Option D: Any LLM**
+Copy-paste agent system prompts as the system prompt or first message in your LLM of choice. No tooling required.
+
+### Configuring your provider
+
+```bash
+cp .agent-teams.env.example .agent-teams.env
+# Edit to set AGENT_PROVIDER and AGENT_MODEL
+```
+
+If no config is present, the default provider is `claude`.
 
 ## Step 1: Pick an Agent
 
@@ -22,10 +44,11 @@ Start with one agent, not the whole team. Choose the one whose output you can ev
 For the marketing team, the **SDR agent** is a good starting point — it produces email sequences you can immediately judge for quality.
 
 ```bash
-# Claude Code
-claude --system-prompt teams/marketing/agents/sdr/system-prompt.md
+# Run via the bin/ runner (respects your configured provider)
+./bin/run-agent.sh marketing sdr
 
-# Or open the file and paste its contents into your LLM
+# Or open the file and paste its contents into any LLM
+# teams/marketing/agents/sdr/system-prompt.md
 ```
 
 ## Step 2: Give It a Real Task
@@ -47,7 +70,12 @@ Read the output critically. Ask yourself:
 ## Step 4: Record Feedback
 
 ```bash
-# Create today's feedback file
+./bin/new-feedback.sh marketing
+# Opens a dated feedback file from the template
+```
+
+Or manually:
+```bash
 mkdir -p teams/marketing/feedback/$(date +%Y-%m)
 cp teams/marketing/feedback/template.md teams/marketing/feedback/$(date +%Y-%m)/$(date +%Y-%m-%d).md
 ```
@@ -56,38 +84,31 @@ Fill in the template honestly. Be specific. "The emails are too generic" is less
 
 The **root cause hypothesis** matters most. "I think the prompt doesn't emphasize personalization enough in the output standards section" gives the meta-agent something concrete to work with.
 
-## Step 5: Run the Meta-Agent
+## Step 5: Run the Full Cycle
 
-Feed the meta-agent your feedback along with the current state of the agent you're improving:
-
-```bash
-claude --system-prompt teams/marketing/meta-agent/system-prompt.md
-```
-
-Provide it with:
-1. Your feedback file
-2. The current agent system prompt
-3. The constitution
-
-The meta-agent will propose specific modifications with rationale.
-
-## Step 6: Run the Auditor
-
-Before applying changes, run the auditor:
+The easiest way is to run the cycle script, which handles meta-agent, auditor, and commit in one flow:
 
 ```bash
-claude --system-prompt teams/marketing/auditor/system-prompt.md
+./bin/run-cycle.sh marketing
 ```
 
-Provide it with:
-1. The meta-agent's proposed changes
-2. Your original feedback
-3. The current agent state
-4. The constitution
+This will:
+1. Send your feedback to the meta-agent → produce an evolution proposal
+2. Send the proposal to the auditor → produce an audit report
+3. Show you a pass/flag dashboard
+4. Ask for your approval before committing
 
-The auditor will assess the proposal across six dimensions and recommend approve, modify, or reject.
+### Running steps individually
 
-## Step 7: Apply and Commit
+```bash
+# Meta-agent processes feedback and proposes changes
+./bin/run-agent.sh marketing meta-agent
+
+# Auditor reviews the proposal
+./bin/run-agent.sh marketing auditor
+```
+
+## Step 6: Apply and Commit
 
 If the auditor approves (and you agree), apply the changes to the agent's system prompt and commit:
 
@@ -96,7 +117,9 @@ git add -A
 git commit -m "Cycle 1: Improved SDR personalization based on feedback re: generic opening lines"
 ```
 
-## Step 8: Repeat
+`run-cycle.sh` offers to do this for you automatically after approval.
+
+## Step 7: Repeat
 
 Run the improved agent on a new task. Evaluate again. The second cycle is where you start to see whether the feedback loop is working.
 

@@ -5,11 +5,45 @@ Command-line tools for building and operating agent teams. All scripts run from 
 ## Prerequisites
 
 - **Bash 4+** (macOS users: `brew install bash`)
-- **Claude Code CLI** (`npm install -g @anthropic-ai/claude-code`)
 - **Python 3** (for JSON manipulation in scoring and cycle management)
 - **Git** (optional, for versioned evolution tracking)
+- **An LLM backend** — one of:
+  - **Claude Code CLI** (default): `npm install -g @anthropic-ai/claude-code`
+  - **Ollama** (local): [https://ollama.ai](https://ollama.ai)
+  - **llm tool** (multi-provider): `pip install llm`
+  - **OpenAI-compatible API**: requires `curl` and `jq`
+
+## Provider Configuration
+
+Copy `.agent-teams.env.example` to `.agent-teams.env` at the repo root and set your provider:
+
+```bash
+# Use Ollama (fully local)
+AGENT_PROVIDER=ollama
+AGENT_MODEL=llama3.2
+
+# Use the llm tool (supports many providers via plugins)
+AGENT_PROVIDER=llm
+AGENT_MODEL=gpt-4o
+
+# Use OpenAI-compatible API
+AGENT_PROVIDER=openai
+OPENAI_API_KEY=sk-...
+AGENT_MODEL=gpt-4o
+```
+
+If no `.agent-teams.env` is present, the default provider is `claude`.
 
 ## Scripts
+
+### `llm-run.sh --system-file FILE (--prompt TEXT | --interactive) [options]`
+
+Provider-agnostic LLM dispatcher. Routes invocations to the configured backend. Called internally by `run-agent.sh` and `run-cycle.sh` — you typically don't call this directly.
+
+```bash
+./llm-run.sh --system-file /tmp/prompt.md --prompt "Hello"
+./llm-run.sh --system-file /tmp/prompt.md --interactive --provider ollama --model llama3.2
+```
 
 ### `build-team-template.sh [team-type]`
 
@@ -22,13 +56,18 @@ Interactive scaffolder that generates a complete agent team directory. Walks you
 
 ### `run-agent.sh <team-slug> <agent-name> [prompt]`
 
-Runs any agent with automatic context loading. Parses `agent.yaml` to find `context_sources`, assembles the system prompt with all referenced files (constitution, glossary, dependent agent prompts), and invokes Claude. Works for specialist agents, the meta-agent, and the auditor.
+Runs any agent with automatic context loading. Parses `agent.yaml` to find `context_sources`, assembles the system prompt with all referenced files (constitution, glossary, dependent agent prompts), and invokes the configured LLM. Works for specialist agents, the meta-agent, and the auditor.
 
 ```bash
 ./run-agent.sh marketing sdr                                    # interactive session
 ./run-agent.sh marketing sdr "Draft a cold outreach email..."   # one-shot
 ./run-agent.sh marketing meta-agent                             # run the meta-agent
 ./run-agent.sh marketing auditor                                # run the auditor
+```
+
+Provider can be overridden per-invocation via environment variable:
+```bash
+AGENT_PROVIDER=ollama AGENT_MODEL=llama3.2 ./run-agent.sh marketing sdr
 ```
 
 ### `new-feedback.sh <team-slug> [cycle-number]`
@@ -87,26 +126,30 @@ Dashboard view. Without arguments, lists all teams. With a team slug, shows:
 
 ```
 1. Scaffold        ./build-team-template.sh marketing
-2. Run agents      ./run-agent.sh marketing sdr "Draft a cold outreach email"
-3. Record feedback ./new-feedback.sh marketing
-4. Evolve          ./run-cycle.sh marketing
-5. Score           ./update-scores.sh marketing
-6. Review          ./team-status.sh marketing
-7. Repeat from 2
+2. Configure       cp ../.agent-teams.env.example ../.agent-teams.env  (set your provider)
+3. Run agents      ./run-agent.sh marketing sdr "Draft a cold outreach email"
+4. Record feedback ./new-feedback.sh marketing
+5. Evolve          ./run-cycle.sh marketing
+6. Score           ./update-scores.sh marketing
+7. Review          ./team-status.sh marketing
+8. Repeat from 3
 ```
 
 ## Directory Structure
 
 ```
 meta-agent-teams/
+├── .agent-teams.env.example      ← provider config template
+├── .agent-teams.env              ← your local config (gitignored)
 ├── bin/
+│   ├── llm-run.sh                ← provider dispatcher (new)
 │   ├── build-team-template.sh
 │   ├── run-agent.sh
 │   ├── new-feedback.sh
 │   ├── run-cycle.sh
 │   ├── update-scores.sh
 │   ├── team-status.sh
-│   └── README.md              ← you are here
+│   └── README.md                 ← you are here
 ├── docs/
 │   ├── architecture.md
 │   ├── getting-started.md
@@ -117,7 +160,7 @@ meta-agent-teams/
 │   ├── SKILL.md
 │   └── references/
 └── teams/
-    └── marketing/             ← example team (ships with repo)
+    └── marketing/                ← example team (ships with repo)
         ├── README.md
         ├── shared/
         │   ├── constitution.md
@@ -148,7 +191,8 @@ meta-agent-teams/
 
 ## Notes
 
-- **Claude CLI flags**: `run-cycle.sh` uses `--system-prompt`, `--prompt`, and `--output-file`. If your Claude Code version uses different flags, adjust the invocations in that script.
+- **Provider override**: Set `AGENT_PROVIDER` and `AGENT_MODEL` env vars to override `.agent-teams.env` for a single command.
+- **Per-agent provider**: Each `agent.yaml` has a `provider` field. The env/config overrides it globally; leave it to use per-agent settings.
 - **Multiple teams**: All scripts support multiple teams side by side under `teams/`. Use `team-status.sh` with no arguments to see them all.
 - **Git integration**: `run-cycle.sh` and `update-scores.sh` will offer to commit if they detect a git repo. Every cycle becomes a commit with a traceable rationale chain.
 - **Constitution is sacred**: Only `build-team-template.sh` creates it. No script modifies it. Only you do, by hand.
