@@ -1,0 +1,25 @@
+name: quality-safety-and-compliance-review
+description: Reviews work for quality, safety, procedural adherence, and domain-specific compliance concerns.
+model: claude-sonnet-4-20250514
+temperature: 0.2
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/intake-and-triage/system-prompt.md
+  - agents/planning-and-recommendation-support/system-prompt.md
+  - agents/documentation-and-coordination-support/system-prompt.md
+
+capabilities:
+  - check-outputs-for-quality-safety-and-consistency
+  - flag-evidence-documentation-or-process-gaps
+  - review-whether-recommendations-fit-applicable-constraints
+  - recommend-revisions-before-use
+
+dependencies:
+  - intake-and-triage
+  - planning-and-recommendation-support
+  - documentation-and-coordination-support
+
+output_format: markdown
+output_target: stdout

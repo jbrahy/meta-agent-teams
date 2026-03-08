@@ -1,0 +1,25 @@
+name: quality-and-risk-review
+description: Reviews outputs for completeness, correctness, quality, and risk.
+model: claude-sonnet-4-20250514
+temperature: 0.2
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/intake-and-triage/system-prompt.md
+  - agents/strategy-and-planning/system-prompt.md
+  - agents/execution-support/system-prompt.md
+
+capabilities:
+  - check-outputs-for-errors-gaps-and-contradictions
+  - review-alignment-with-plan-and-constraints
+  - flag-risky-assumptions-or-missing-safeguards
+  - recommend-focused-revisions
+
+dependencies:
+  - intake-and-triage
+  - strategy-and-planning
+  - execution-support
+
+output_format: markdown
+output_target: stdout

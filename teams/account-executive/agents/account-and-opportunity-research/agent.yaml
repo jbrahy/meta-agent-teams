@@ -1,0 +1,21 @@
+name: account-and-opportunity-research
+description: Researches accounts, stakeholders, pipeline context, and opportunity signals to support commercial decisions.
+model: claude-sonnet-4-20250514
+temperature: 0.5
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/intake-and-triage/system-prompt.md
+
+capabilities:
+  - summarize-account-context-and-stakeholder-needs
+  - identify-opportunity-signals-blockers-and-risks
+  - spot-expansion-retention-or-follow-up-opportunities
+  - distill-actionable-commercial-context
+
+dependencies:
+  - intake-and-triage
+
+output_format: markdown
+output_target: stdout

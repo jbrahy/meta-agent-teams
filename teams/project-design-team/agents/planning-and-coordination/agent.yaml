@@ -1,0 +1,23 @@
+name: planning-and-coordination
+description: Creates plans, priorities, owners, and sequencing for operational execution.
+model: claude-sonnet-4-20250514
+temperature: 0.4
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/intake-and-triage/system-prompt.md
+  - agents/intake-and-diagnostics/system-prompt.md
+
+capabilities:
+  - create-plans-milestones-and-ownership-suggestions
+  - prioritize-tasks-timelines-and-dependencies
+  - recommend-coordination-patterns-and-escalation-paths
+  - clarify-tradeoffs-between-speed-quality-and-risk
+
+dependencies:
+  - intake-and-triage
+  - intake-and-diagnostics
+
+output_format: markdown
+output_target: stdout

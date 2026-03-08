@@ -1,0 +1,25 @@
+name: quality-security-and-reliability-review
+description: Reviews outputs for correctness, quality, security, resilience, and operational soundness.
+model: claude-sonnet-4-20250514
+temperature: 0.2
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/intake-and-triage/system-prompt.md
+  - agents/solution-design-and-planning/system-prompt.md
+  - agents/implementation-and-delivery-support/system-prompt.md
+
+capabilities:
+  - review-for-correctness-reliability-and-maintainability
+  - flag-security-data-handling-and-failure-mode-concerns
+  - check-rollout-testing-and-rollback-readiness
+  - recommend-targeted-risk-reducing-revisions
+
+dependencies:
+  - intake-and-triage
+  - solution-design-and-planning
+  - implementation-and-delivery-support
+
+output_format: markdown
+output_target: stdout

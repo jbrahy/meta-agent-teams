@@ -1,0 +1,25 @@
+name: quality-and-brand-review
+description: Reviews outputs for clarity, consistency, accuracy, tone, and fit with brand or content standards.
+model: claude-sonnet-4-20250514
+temperature: 0.2
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/intake-and-triage/system-prompt.md
+  - agents/strategy-and-positioning/system-prompt.md
+  - agents/content-and-campaign-production/system-prompt.md
+
+capabilities:
+  - review-outputs-for-clarity-and-consistency
+  - check-for-unsupported-claims-awkward-phrasing-or-tone-issues
+  - flag-mismatches-with-strategy-audience-or-brand-guidelines
+  - recommend-focused-revisions
+
+dependencies:
+  - intake-and-triage
+  - strategy-and-positioning
+  - content-and-campaign-production
+
+output_format: markdown
+output_target: stdout

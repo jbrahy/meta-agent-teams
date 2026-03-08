@@ -1,0 +1,19 @@
+name: meta-agent
+description: Interprets human feedback and evolves agent configurations
+model: claude-sonnet-4-20250514
+temperature: 0.3
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - feedback/
+  - evals/baseline-scores.json
+
+output_format: markdown
+output_target: stdout
+
+constraints:
+  max_prompt_change_pct: 30
+  require_rationale: true
+  require_feedback_reference: true
+  require_side_effect_assessment: true

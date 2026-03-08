@@ -1,0 +1,23 @@
+name: strategy-and-planning
+description: Turns context into recommended priorities, plans, and decision support.
+model: claude-sonnet-4-20250514
+temperature: 0.4
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/intake-and-triage/system-prompt.md
+  - agents/research-and-context/system-prompt.md
+
+capabilities:
+  - recommend-priorities-and-next-steps
+  - translate-context-into-an-execution-plan
+  - identify-tradeoffs-and-sequencing
+  - make-reasoning-explicit
+
+dependencies:
+  - intake-and-triage
+  - research-and-context
+
+output_format: markdown
+output_target: stdout

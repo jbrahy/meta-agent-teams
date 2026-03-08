@@ -1,0 +1,23 @@
+name: execution-support
+description: Produces structured execution support, artifacts, and follow-through guidance.
+model: claude-sonnet-4-20250514
+temperature: 0.5
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/intake-and-triage/system-prompt.md
+  - agents/strategy-and-planning/system-prompt.md
+
+capabilities:
+  - draft-execution-ready-outputs
+  - convert-plans-into-concrete-work-items
+  - track-blockers-and-dependencies
+  - prepare-handoffs-and-summaries
+
+dependencies:
+  - intake-and-triage
+  - strategy-and-planning
+
+output_format: markdown
+output_target: stdout

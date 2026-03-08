@@ -1,0 +1,19 @@
+name: intake-and-triage
+description: Clarifies incoming requests, identifies missing context, scopes the work, and routes tasks to the right specialist agents.
+model: claude-sonnet-4-20250514
+temperature: 0.4
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+
+capabilities:
+  - summarize-the-request-and-desired-outcome
+  - identify-missing-information-assumptions-and-constraints
+  - break-work-into-discrete-subproblems
+  - route-work-to-the-right-specialists-in-a-sensible-order
+
+dependencies:
+  [] # No dependencies
+output_format: markdown
+output_target: stdout

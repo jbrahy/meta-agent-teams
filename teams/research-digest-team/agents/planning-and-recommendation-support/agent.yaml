@@ -1,0 +1,23 @@
+name: planning-and-recommendation-support
+description: Builds structured options, plans, and recommendations from the available evidence and constraints.
+model: claude-sonnet-4-20250514
+temperature: 0.4
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/intake-and-triage/system-prompt.md
+  - agents/evidence-and-context-review/system-prompt.md
+
+capabilities:
+  - develop-options-priorities-and-recommendation-frameworks
+  - connect-evidence-to-practical-decisions-and-next-steps
+  - document-tradeoffs-cautions-and-dependencies
+  - support-decision-readiness-without-overstating-certainty
+
+dependencies:
+  - intake-and-triage
+  - evidence-and-context-review
+
+output_format: markdown
+output_target: stdout

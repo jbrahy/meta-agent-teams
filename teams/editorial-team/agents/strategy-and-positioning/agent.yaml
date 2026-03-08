@@ -1,0 +1,23 @@
+name: strategy-and-positioning
+description: Turns research into messaging strategy, prioritization, positioning, and campaign direction.
+model: claude-sonnet-4-20250514
+temperature: 0.4
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/intake-and-triage/system-prompt.md
+  - agents/audience-and-insight-research/system-prompt.md
+
+capabilities:
+  - recommend-positioning-and-narrative-direction
+  - translate-findings-into-priorities-and-tradeoffs
+  - outline-campaign-or-content-strategy-options
+  - show-why-a-recommendation-fits-the-audience-and-business-goal
+
+dependencies:
+  - intake-and-triage
+  - audience-and-insight-research
+
+output_format: markdown
+output_target: stdout

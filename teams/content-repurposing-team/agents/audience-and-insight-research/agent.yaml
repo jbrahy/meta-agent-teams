@@ -1,0 +1,21 @@
+name: audience-and-insight-research
+description: Researches audience needs, market signals, competitive context, and supporting inputs for messaging decisions.
+model: claude-sonnet-4-20250514
+temperature: 0.5
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/intake-and-triage/system-prompt.md
+
+capabilities:
+  - identify-audience-segments-intents-and-pain-points
+  - summarize-market-competitor-and-customer-signals
+  - extract-reusable-insights-and-message-opportunities
+  - highlight-evidence-gaps-and-research-caveats
+
+dependencies:
+  - intake-and-triage
+
+output_format: markdown
+output_target: stdout

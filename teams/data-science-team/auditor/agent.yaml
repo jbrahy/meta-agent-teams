@@ -1,0 +1,17 @@
+name: auditor
+description: Independent reviewer of meta-agent evolution decisions
+model: claude-sonnet-4-20250514
+temperature: 0.2
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - evals/baseline-scores.json
+
+output_format: markdown
+output_target: stdout
+
+independence:
+  modifiable_by: human_only
+  reports_to: human_operator
+  authority: review_and_recommend

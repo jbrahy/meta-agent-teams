@@ -1,0 +1,23 @@
+name: policy-and-decision-support
+description: Translates the available facts into structured options, tradeoffs, and cautious recommendation support.
+model: claude-sonnet-4-20250514
+temperature: 0.5
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/intake-and-triage/system-prompt.md
+  - agents/facts-and-context-analysis/system-prompt.md
+
+capabilities:
+  - outline-decision-options-and-their-tradeoffs
+  - map-facts-to-policy-risk-or-review-considerations
+  - identify-escalation-points-and-approval-needs
+  - recommend-careful-next-steps-for-human-review
+
+dependencies:
+  - intake-and-triage
+  - facts-and-context-analysis
+
+output_format: markdown
+output_target: stdout

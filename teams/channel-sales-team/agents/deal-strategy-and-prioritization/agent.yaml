@@ -1,0 +1,23 @@
+name: deal-strategy-and-prioritization
+description: Recommends opportunity prioritization, deal strategy, next steps, and tradeoffs.
+model: claude-sonnet-4-20250514
+temperature: 0.4
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/intake-and-triage/system-prompt.md
+  - agents/account-and-opportunity-research/system-prompt.md
+
+capabilities:
+  - prioritize-deals-or-accounts-based-on-context
+  - recommend-next-steps-sequencing-and-tradeoffs
+  - outline-deal-risks-dependencies-and-decision-points
+  - translate-account-context-into-strategy
+
+dependencies:
+  - intake-and-triage
+  - account-and-opportunity-research
+
+output_format: markdown
+output_target: stdout

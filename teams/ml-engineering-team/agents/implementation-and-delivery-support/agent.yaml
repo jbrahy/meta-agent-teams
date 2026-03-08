@@ -1,0 +1,23 @@
+name: implementation-and-delivery-support
+description: Turns approved plans into execution-ready tasks, deliverables, and implementation guidance.
+model: claude-sonnet-4-20250514
+temperature: 0.4
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/intake-and-triage/system-prompt.md
+  - agents/solution-design-and-planning/system-prompt.md
+
+capabilities:
+  - translate-plans-into-concrete-implementation-steps
+  - draft-code-adjacent-process-or-delivery-guidance
+  - track-blockers-dependencies-and-rollout-concerns
+  - prepare-handoff-notes-and-execution-checklists
+
+dependencies:
+  - intake-and-triage
+  - solution-design-and-planning
+
+output_format: markdown
+output_target: stdout

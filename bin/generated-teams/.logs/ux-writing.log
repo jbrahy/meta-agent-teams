@@ -1,0 +1,196 @@
+
+[1m[0;34m═══════════════════════════════════════════════════════[0m
+[1m[0;34m  Meta-Agent Team Builder[0m
+[1m[0;34m═══════════════════════════════════════════════════════[0m
+
+[2mThis script will walk you through creating a new agent team.[0m
+[2mIt generates the full directory structure with system prompts,[0m
+[2mconfigurations, a constitution, auditor, meta-agent, and evals.[0m
+
+
+[1m[0;36m── Step 1: Team Identity ──[0m
+
+Domain: [0;32mux-writing[0m (from argument)
+[1mDescribe what this team does in one sentence: [0m[1mOperational mode [advisory-only]: [0m[2m  advisory-only = agents suggest, you execute (recommended for new teams)[0m
+[2m  semi-autonomous = some agents can take limited actions[0m
+[2m  autonomous = agents act independently (requires high trust)[0m
+
+[1m[0;36m── Step 2: Define Your Agents ──[0m
+
+[2mNow define the specialist agents for your team.[0m
+[2mAim for 4-8 agents. Each one should have a distinct responsibility.[0m
+[2mThink about: what are the key functions this team needs to perform?[0m
+
+
+[1m[0;36m── Agent #1 ──[0m
+
+[1mAgent name (e.g., 'incident-response', 'content-writer'): [0m[1mWhat does this agent do? (one sentence): [0m
+[2mList this agent's capabilities (3-6 recommended):[0m
+[2m(Enter one capability per line. Empty line to finish.)[0m
+[1m  → [0m[1m  → [0m[1m  → [0m[1m  → [0m[1m  → [0m[1mTemperature (0.1=precise, 0.5=balanced, 0.8=creative) [0.5]: [0m
+[2mWhich other agents does this one depend on?[0m
+[2m(Enter agent names from the list above, or leave empty.)[0m
+
+[2mWhat must this agent NEVER do? (domain-specific guardrails)[0m
+[2m(Enter one guardrail per line. Empty line to finish.)[0m
+[1m  ✗ [0m[1m  ✗ [0m[1m  ✗ [0m[0;32m✓ Agent 'intake-and-triage' added.[0m
+
+[2mYou have 1 agent(s). Aim for at least 4.[0m
+
+[1m[0;36m── Agent #2 ──[0m
+
+[1mAgent name (e.g., 'incident-response', 'content-writer'): [0m[1mWhat does this agent do? (one sentence): [0m
+[2mList this agent's capabilities (3-6 recommended):[0m
+[2m(Enter one capability per line. Empty line to finish.)[0m
+[1m  → [0m[1m  → [0m[1m  → [0m[1m  → [0m[1m  → [0m[1mTemperature (0.1=precise, 0.5=balanced, 0.8=creative) [0.5]: [0m
+[2mWhich other agents does this one depend on?[0m
+[2m(Enter agent names from the list above, or leave empty.)[0m
+[2mAgents defined so far: intake-and-triage[0m
+[1m  dependency → [0m[1m  dependency → [0m
+[2mWhat must this agent NEVER do? (domain-specific guardrails)[0m
+[2m(Enter one guardrail per line. Empty line to finish.)[0m
+[1m  ✗ [0m[1m  ✗ [0m[1m  ✗ [0m[0;32m✓ Agent 'research-and-context' added.[0m
+
+[2mYou have 2 agent(s). Aim for at least 4.[0m
+
+[1m[0;36m── Agent #3 ──[0m
+
+[1mAgent name (e.g., 'incident-response', 'content-writer'): [0m[1mWhat does this agent do? (one sentence): [0m
+[2mList this agent's capabilities (3-6 recommended):[0m
+[2m(Enter one capability per line. Empty line to finish.)[0m
+[1m  → [0m[1m  → [0m[1m  → [0m[1m  → [0m[1m  → [0m[1mTemperature (0.1=precise, 0.5=balanced, 0.8=creative) [0.4]: [0m
+[2mWhich other agents does this one depend on?[0m
+[2m(Enter agent names from the list above, or leave empty.)[0m
+[2mAgents defined so far: intake-and-triage research-and-context[0m
+[1m  dependency → [0m[1m  dependency → [0m[1m  dependency → [0m
+[2mWhat must this agent NEVER do? (domain-specific guardrails)[0m
+[2m(Enter one guardrail per line. Empty line to finish.)[0m
+[1m  ✗ [0m[1m  ✗ [0m[1m  ✗ [0m[0;32m✓ Agent 'strategy-and-planning' added.[0m
+
+[2mYou have 3 agent(s). Aim for at least 4.[0m
+
+[1m[0;36m── Agent #4 ──[0m
+
+[1mAgent name (e.g., 'incident-response', 'content-writer'): [0m[1mWhat does this agent do? (one sentence): [0m
+[2mList this agent's capabilities (3-6 recommended):[0m
+[2m(Enter one capability per line. Empty line to finish.)[0m
+[1m  → [0m[1m  → [0m[1m  → [0m[1m  → [0m[1m  → [0m[1mTemperature (0.1=precise, 0.5=balanced, 0.8=creative) [0.5]: [0m
+[2mWhich other agents does this one depend on?[0m
+[2m(Enter agent names from the list above, or leave empty.)[0m
+[2mAgents defined so far: intake-and-triage research-and-context strategy-and-planning[0m
+[1m  dependency → [0m[1m  dependency → [0m[1m  dependency → [0m
+[2mWhat must this agent NEVER do? (domain-specific guardrails)[0m
+[2m(Enter one guardrail per line. Empty line to finish.)[0m
+[1m  ✗ [0m[1m  ✗ [0m[1m  ✗ [0m[0;32m✓ Agent 'execution-support' added.[0m
+
+[1mAdd another agent? [Y/n]: [0m
+[1m[0;36m── Agent #5 ──[0m
+
+[1mAgent name (e.g., 'incident-response', 'content-writer'): [0m[1mWhat does this agent do? (one sentence): [0m
+[2mList this agent's capabilities (3-6 recommended):[0m
+[2m(Enter one capability per line. Empty line to finish.)[0m
+[1m  → [0m[1m  → [0m[1m  → [0m[1m  → [0m[1m  → [0m[1mTemperature (0.1=precise, 0.5=balanced, 0.8=creative) [0.5]: [0m
+[2mWhich other agents does this one depend on?[0m
+[2m(Enter agent names from the list above, or leave empty.)[0m
+[2mAgents defined so far: intake-and-triage research-and-context strategy-and-planning execution-support[0m
+[1m  dependency → [0m[1m  dependency → [0m[1m  dependency → [0m[1m  dependency → [0m
+[2mWhat must this agent NEVER do? (domain-specific guardrails)[0m
+[2m(Enter one guardrail per line. Empty line to finish.)[0m
+[1m  ✗ [0m[1m  ✗ [0m[1m  ✗ [0m[0;32m✓ Agent 'quality-and-risk-review' added.[0m
+
+[1mAdd another agent? [Y/n]: [0m
+[1m[0;36m── Step 3: Constitution & Ethical Constraints ──[0m
+
+[2mThe constitution defines inviolable rules that no agent — including[0m
+[2mthe meta-agent — can violate. Only you (the human) can amend it.[0m
+
+
+[2mList domain-specific ethical or regulatory constraints:[0m
+[2m(e.g., 'No medical diagnoses', 'Must comply with GDPR', 'No deceptive practices')[0m
+[2m(Enter one per line. Empty line to finish.)[0m
+[1m  ⚖ [0m[1m  ⚖ [0m[1m  ⚖ [0m
+[2mAny data handling constraints?[0m
+[2m(e.g., 'No PII without encryption', 'No cross-referencing customer data')[0m
+[1m  🔒 [0m[1m  🔒 [0m[1m  🔒 [0m
+[1m[0;36m── Step 4: Evaluation Dimensions ──[0m
+
+[2mHow will you judge agent output? Define 4-6 evaluation dimensions.[0m
+[2mCommon dimensions: relevance, accuracy, actionability, coherence, voice[0m
+[2m(Enter one per line in format: 'dimension - description'. Empty line to finish.)[0m
+[1m  📊 [0m[1m  📊 [0m[1m  📊 [0m[1m  📊 [0m[1m  📊 [0m
+[1m[0;36m── Summary ──[0m
+
+[1mTeam:[0m ux-writing (ux-writing)
+[1mDescription:[0m This team helps manage UX Writing work with specialist agents that research, plan, review, and improve outcomes.
+[1mMode:[0m advisory-only
+[1mAgents (5):[0m
+  [0;32mintake-and-triage[0m — Clarifies incoming requests, identifies missing context, scopes the work, and routes tasks to the right specialist agents. (temp: 0.4)
+  [0;32mresearch-and-context[0m — Researches relevant context, inputs, and supporting information for the team. (temp: 0.5)
+  [0;32mstrategy-and-planning[0m — Turns context into recommended priorities, plans, and decision support. (temp: 0.4)
+  [0;32mexecution-support[0m — Produces structured execution support, artifacts, and follow-through guidance. (temp: 0.5)
+  [0;32mquality-and-risk-review[0m — Reviews outputs for completeness, correctness, quality, and risk. (temp: 0.2)
+[1mEthical constraints:[0m 2
+[1mData constraints:[0m 2
+[1mEval dimensions:[0m 4
+
+[1mGenerate this team? [Y/n]: [0m
+[1m[0;34m═══════════════════════════════════════════════════════[0m
+[1m[0;34m  Generating team: ux-writing[0m
+[1m[0;34m═══════════════════════════════════════════════════════[0m
+
+[0;32m✓ README.md[0m
+[0;32m✓ shared/constitution.md[0m
+[0;32m✓ shared/glossary.md[0m
+[0;32m✓ meta-agent/[0m
+[0;32m✓ auditor/[0m
+[0;32m✓ agents/intake-and-triage/[0m
+[0;32m✓ agents/research-and-context/[0m
+[0;32m✓ agents/strategy-and-planning/[0m
+[0;32m✓ agents/execution-support/[0m
+[0;32m✓ agents/quality-and-risk-review/[0m
+[0;32m✓ feedback/template.md[0m
+[0;32m✓ evals/baseline-scores.json[0m
+
+[1m[0;34m═══════════════════════════════════════════════════════[0m
+[1m[0;34m  Team Generated Successfully[0m
+[1m[0;34m═══════════════════════════════════════════════════════[0m
+
+[1mLocation:[0m /Users/jbrahy/OtherProjects/meta-agent-teams/bin/generated-teams/.tmp-ux-writing/teams/ux-writing
+
+[1mFiles created:[0m
+  [2magents/execution-support/agent.yaml[0m
+  [2magents/execution-support/CHANGELOG.md[0m
+  [2magents/execution-support/system-prompt.md[0m
+  [2magents/intake-and-triage/agent.yaml[0m
+  [2magents/intake-and-triage/CHANGELOG.md[0m
+  [2magents/intake-and-triage/system-prompt.md[0m
+  [2magents/quality-and-risk-review/agent.yaml[0m
+  [2magents/quality-and-risk-review/CHANGELOG.md[0m
+  [2magents/quality-and-risk-review/system-prompt.md[0m
+  [2magents/research-and-context/agent.yaml[0m
+  [2magents/research-and-context/CHANGELOG.md[0m
+  [2magents/research-and-context/system-prompt.md[0m
+  [2magents/strategy-and-planning/agent.yaml[0m
+  [2magents/strategy-and-planning/CHANGELOG.md[0m
+  [2magents/strategy-and-planning/system-prompt.md[0m
+  [2mauditor/agent.yaml[0m
+  [2mauditor/CHANGELOG.md[0m
+  [2mauditor/system-prompt.md[0m
+  [2mevals/baseline-scores.json[0m
+  [2mfeedback/template.md[0m
+  [2mmeta-agent/agent.yaml[0m
+  [2mmeta-agent/CHANGELOG.md[0m
+  [2mmeta-agent/system-prompt.md[0m
+  [2mREADME.md[0m
+  [2mshared/constitution.md[0m
+  [2mshared/glossary.md[0m
+
+[1mNext steps:[0m
+  1. Review and customize the [1;33mTODO[0m sections in each agent's system-prompt.md
+  2. Add domain-specific terms to [0;36mshared/glossary.md[0m
+  3. Review the constitution at [0;36mshared/constitution.md[0m
+  4. Run your first agent:
+     [2mclaude --system-prompt /Users/jbrahy/OtherProjects/meta-agent-teams/bin/generated-teams/.tmp-ux-writing/teams/ux-writing/agents/intake-and-triage/system-prompt.md[0m
+  5. Record feedback and start the improvement cycle
+
+[0;32mHappy building.[0m

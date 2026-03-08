@@ -1,0 +1,23 @@
+name: pipeline-and-follow-up-execution
+description: Supports execution by preparing follow-ups, summaries, plans, and structured next-step materials.
+model: claude-sonnet-4-20250514
+temperature: 0.4
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/intake-and-triage/system-prompt.md
+  - agents/deal-strategy-and-prioritization/system-prompt.md
+
+capabilities:
+  - draft-follow-up-materials-and-action-plans
+  - convert-strategy-into-execution-ready-tasks
+  - track-dependencies-owners-and-deadlines
+  - surface-stalled-motion-or-missing-inputs
+
+dependencies:
+  - intake-and-triage
+  - deal-strategy-and-prioritization
+
+output_format: markdown
+output_target: stdout

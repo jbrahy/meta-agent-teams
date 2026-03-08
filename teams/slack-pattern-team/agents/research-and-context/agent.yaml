@@ -1,0 +1,21 @@
+name: research-and-context
+description: Researches relevant context, inputs, and supporting information for the team.
+model: claude-sonnet-4-20250514
+temperature: 0.5
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/intake-and-triage/system-prompt.md
+
+capabilities:
+  - gather-and-summarize-relevant-context
+  - identify-assumptions-dependencies-and-missing-inputs
+  - organize-information-for-downstream-specialists
+  - highlight-uncertainty-and-evidence-gaps
+
+dependencies:
+  - intake-and-triage
+
+output_format: markdown
+output_target: stdout

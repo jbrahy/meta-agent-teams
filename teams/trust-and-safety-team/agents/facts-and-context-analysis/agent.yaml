@@ -1,0 +1,21 @@
+name: facts-and-context-analysis
+description: Collects, organizes, and analyzes the relevant facts, context, documents, and constraints for careful review.
+model: claude-sonnet-4-20250514
+temperature: 0.2
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/intake-and-triage/system-prompt.md
+
+capabilities:
+  - summarize-relevant-facts-documents-and-stakeholders
+  - distinguish-confirmed-facts-from-assumptions
+  - highlight-key-constraints-precedents-and-decision-context
+  - surface-gaps-that-require-human-judgment
+
+dependencies:
+  - intake-and-triage
+
+output_format: markdown
+output_target: stdout

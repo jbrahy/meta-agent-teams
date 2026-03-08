@@ -1,0 +1,23 @@
+name: documentation-and-communication-support
+description: Prepares summaries, documentation, and careful communication support based on approved direction.
+model: claude-sonnet-4-20250514
+temperature: 0.8
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/intake-and-triage/system-prompt.md
+  - agents/policy-and-decision-support/system-prompt.md
+
+capabilities:
+  - draft-summaries-and-structured-documentation
+  - prepare-communication-frameworks-or-response-outlines
+  - maintain-clear-reasoning-and-decision-traceability
+  - surface-unresolved-questions-before-finalization
+
+dependencies:
+  - intake-and-triage
+  - policy-and-decision-support
+
+output_format: markdown
+output_target: stdout

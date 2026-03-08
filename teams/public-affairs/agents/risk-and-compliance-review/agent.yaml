@@ -1,0 +1,25 @@
+name: risk-and-compliance-review
+description: Reviews work for risk exposure, policy alignment, consistency, and compliance concerns.
+model: claude-sonnet-4-20250514
+temperature: 0.2
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/intake-and-triage/system-prompt.md
+  - agents/policy-and-decision-support/system-prompt.md
+  - agents/documentation-and-communication-support/system-prompt.md
+
+capabilities:
+  - identify-policy-compliance-and-governance-issues
+  - check-consistency-across-recommendations-and-documentation
+  - flag-escalation-items-and-sensitive-edge-cases
+  - recommend-mitigations-and-review-steps
+
+dependencies:
+  - intake-and-triage
+  - policy-and-decision-support
+  - documentation-and-communication-support
+
+output_format: markdown
+output_target: stdout

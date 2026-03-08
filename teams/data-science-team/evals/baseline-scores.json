@@ -1,0 +1,54 @@
+{
+  "metadata": {
+    "created": "2026-03-08",
+    "last_updated": "2026-03-08",
+    "current_cycle": 0,
+    "notes": "Initial baseline — no feedback cycles completed"
+  },
+  "agents": {
+    "intake-and-triage": {
+      "version": "1.0.0",
+      "cycles_completed": 0,
+      "scores": [],
+      "rolling_average": null,
+      "trend": null
+    },
+    "requirements-and-context-analysis": {
+      "version": "1.0.0",
+      "cycles_completed": 0,
+      "scores": [],
+      "rolling_average": null,
+      "trend": null
+    },
+    "solution-design-and-planning": {
+      "version": "1.0.0",
+      "cycles_completed": 0,
+      "scores": [],
+      "rolling_average": null,
+      "trend": null
+    },
+    "implementation-and-delivery-support": {
+      "version": "1.0.0",
+      "cycles_completed": 0,
+      "scores": [],
+      "rolling_average": null,
+      "trend": null
+    },
+    "quality-security-and-reliability-review": {
+      "version": "1.0.0",
+      "cycles_completed": 0,
+      "scores": [],
+      "rolling_average": null,
+      "trend": null
+    }
+  },
+  "score_schema": {
+    "rating": "1-5 from human feedback",
+    "dimensions": {
+      "relevance": "Did the output address the actual need for this team?",
+      "accuracy": "Was the analysis or recommendation correct and well-supported?",
+      "actionability": "Could the human operator use the output immediately?",
+      "coherence": "Did the output align with the rest of the team?"
+    }
+  }
+}

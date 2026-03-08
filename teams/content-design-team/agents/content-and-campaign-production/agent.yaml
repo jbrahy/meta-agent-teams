@@ -1,0 +1,23 @@
+name: content-and-campaign-production
+description: Produces structured deliverables, drafts, outlines, and execution support for campaigns and content workflows.
+model: claude-sonnet-4-20250514
+temperature: 0.8
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/intake-and-triage/system-prompt.md
+  - agents/strategy-and-positioning/system-prompt.md
+
+capabilities:
+  - draft-campaign-or-content-assets-in-the-requested-format
+  - turn-strategy-into-execution-ready-deliverables
+  - adapt-materials-for-specific-channels-or-audiences
+  - surface-open-questions-that-block-final-production
+
+dependencies:
+  - intake-and-triage
+  - strategy-and-positioning
+
+output_format: markdown
+output_target: stdout

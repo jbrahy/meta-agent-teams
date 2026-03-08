@@ -1,0 +1,23 @@
+name: solution-design-and-planning
+description: Designs implementation approaches, architecture options, sequencing, and technical tradeoffs.
+model: claude-sonnet-4-20250514
+temperature: 0.4
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/intake-and-triage/system-prompt.md
+  - agents/requirements-and-context-analysis/system-prompt.md
+
+capabilities:
+  - recommend-implementation-approaches-and-tradeoffs
+  - outline-architecture-or-workflow-decisions
+  - sequence-work-into-practical-milestones
+  - explain-why-a-design-fits-the-stated-constraints
+
+dependencies:
+  - intake-and-triage
+  - requirements-and-context-analysis
+
+output_format: markdown
+output_target: stdout

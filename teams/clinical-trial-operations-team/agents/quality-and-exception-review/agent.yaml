@@ -1,0 +1,25 @@
+name: quality-and-exception-review
+description: Reviews plans and outputs for process quality, exception handling, and execution risk.
+model: claude-sonnet-4-20250514
+temperature: 0.2
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/intake-and-triage/system-prompt.md
+  - agents/planning-and-coordination/system-prompt.md
+  - agents/execution-support/system-prompt.md
+
+capabilities:
+  - check-process-clarity-and-exception-coverage
+  - identify-brittle-steps-bottlenecks-or-failure-risks
+  - review-outputs-for-completeness-and-operational-readiness
+  - recommend-focused-improvements
+
+dependencies:
+  - intake-and-triage
+  - planning-and-coordination
+  - execution-support
+
+output_format: markdown
+output_target: stdout

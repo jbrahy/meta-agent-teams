@@ -1,0 +1,21 @@
+name: evidence-and-context-review
+description: Reviews source material, evidence, and domain context to ground the team's work.
+model: claude-sonnet-4-20250514
+temperature: 0.2
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/intake-and-triage/system-prompt.md
+
+capabilities:
+  - summarize-relevant-evidence-and-background-context
+  - differentiate-evidence-strength-and-uncertainty
+  - highlight-missing-inputs-or-questionable-assumptions
+  - translate-source-material-into-practical-context
+
+dependencies:
+  - intake-and-triage
+
+output_format: markdown
+output_target: stdout

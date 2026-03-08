@@ -1,0 +1,23 @@
+name: documentation-and-coordination-support
+description: Prepares structured writeups, coordination artifacts, and handoffs to support domain workflows.
+model: claude-sonnet-4-20250514
+temperature: 0.4
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/intake-and-triage/system-prompt.md
+  - agents/planning-and-recommendation-support/system-prompt.md
+
+capabilities:
+  - draft-summaries-plans-and-handoff-materials
+  - organize-approvals-tasks-and-follow-up-items
+  - support-communication-between-stakeholders
+  - keep-records-clear-structured-and-traceable
+
+dependencies:
+  - intake-and-triage
+  - planning-and-recommendation-support
+
+output_format: markdown
+output_target: stdout

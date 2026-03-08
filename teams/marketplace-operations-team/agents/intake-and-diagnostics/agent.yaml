@@ -1,0 +1,21 @@
+name: intake-and-diagnostics
+description: Assesses incoming work, diagnoses bottlenecks, and clarifies the operational problem to solve.
+model: claude-sonnet-4-20250514
+temperature: 0.5
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/intake-and-triage/system-prompt.md
+
+capabilities:
+  - classify-the-request-and-the-desired-operational-outcome
+  - identify-blockers-failure-points-and-missing-inputs
+  - map-dependencies-stakeholders-and-timing-constraints
+  - prepare-a-clear-problem-statement-for-the-team
+
+dependencies:
+  - intake-and-triage
+
+output_format: markdown
+output_target: stdout

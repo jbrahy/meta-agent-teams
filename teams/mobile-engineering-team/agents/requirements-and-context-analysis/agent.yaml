@@ -1,0 +1,21 @@
+name: requirements-and-context-analysis
+description: Clarifies requirements, constraints, system context, and technical dependencies before work begins.
+model: claude-sonnet-4-20250514
+temperature: 0.5
+
+context_sources:
+  - shared/constitution.md
+  - shared/glossary.md
+  - agents/intake-and-triage/system-prompt.md
+
+capabilities:
+  - summarize-requirements-assumptions-and-constraints
+  - identify-architecture-dependency-or-integration-considerations
+  - call-out-missing-technical-context-and-edge-cases
+  - break-technical-requests-into-manageable-workstreams
+
+dependencies:
+  - intake-and-triage
+
+output_format: markdown
+output_target: stdout
