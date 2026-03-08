@@ -171,7 +171,8 @@ See `references/domain-constitutions.md` for domain-specific constraints. Every 
 ```yaml
 name: [kebab-case-name]
 description: [one-line purpose]
-model: claude-sonnet-4-20250514
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
+model: claude-sonnet-4-5
 temperature: [calibrated to task — see temperature guide in SKILL.md]
 
 context_sources:

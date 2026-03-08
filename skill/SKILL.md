@@ -107,7 +107,8 @@ The auditor must be explicitly independent — the meta-agent has no authority o
 **Agent.yaml configs** — Each config must include:
 - `name`: identifier
 - `description`: one-line purpose
-- `model`: default to `claude-sonnet-4-20250514`
+- `provider`: default to `anthropic` (anthropic | llm | ollama | openai — overridden globally by `.agent-teams.env`)
+- `model`: default to `claude-sonnet-4-5`
 - `temperature`: calibrated to the task (0.2 for analytical/precision work, 0.4-0.5 for strategic/planning, 0.7-0.8 for creative/generative work)
 - `context_sources`: list of files the agent needs (always includes constitution and glossary)
 - `capabilities`: enumerated list of what this agent does

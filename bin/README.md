@@ -7,11 +7,13 @@ Command-line tools for building and operating agent teams. All scripts run from 
 - **Bash 4+** (macOS users: `brew install bash`)
 - **Python 3** (for JSON manipulation in scoring and cycle management)
 - **Git** (optional, for versioned evolution tracking)
-- **An LLM backend** — one of:
-  - **Claude Code CLI** (default): `npm install -g @anthropic-ai/claude-code`
-  - **Ollama** (local): [https://ollama.ai](https://ollama.ai)
-  - **llm tool** (multi-provider): `pip install llm`
-  - **OpenAI-compatible API**: requires `curl` and `jq`
+- **An LLM backend** — pick one:
+  - **Claude Code CLI**: `npm install -g @anthropic-ai/claude-code`
+  - **Ollama** (local, no API key): [https://ollama.ai](https://ollama.ai)
+  - **llm tool** (multi-provider via plugins): `pip install llm`
+  - **OpenAI-compatible API**: requires `curl` and `jq` (no extra install)
+
+  If no `.agent-teams.env` is configured, the scripts fall back to `claude` CLI.
 
 ## Provider Configuration
 
@@ -31,8 +33,6 @@ AGENT_PROVIDER=openai
 OPENAI_API_KEY=sk-...
 AGENT_MODEL=gpt-4o
 ```
-
-If no `.agent-teams.env` is present, the default provider is `claude`.
 
 ## Scripts
 

@@ -258,7 +258,8 @@ Write output standards that are genuinely specific to the domain. "High quality 
 ```yaml
 name: kebab-case-name
 description: One-line purpose
-model: claude-sonnet-4-20250514
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
+model: claude-sonnet-4-5
 temperature: [see calibration guide below]
 
 context_sources:

@@ -4,38 +4,23 @@ This guide walks you through your first feedback cycle with an existing team.
 
 ## Prerequisites
 
-You need access to a capable LLM. The framework works with any LLM that can accept a system prompt.
+You need **one** LLM backend. Pick the option that fits your setup — you don't need more than one.
 
-**Option A: Claude Code (default)**
-```bash
-npm install -g @anthropic-ai/claude-code
-```
+| Option | Best for | Install |
+|--------|----------|---------|
+| **Claude Code CLI** | Anthropic API users | `npm install -g @anthropic-ai/claude-code` |
+| **Ollama** | Local/private, no API key | [https://ollama.ai](https://ollama.ai) then `ollama pull llama3.2` |
+| **llm tool** | Multi-provider via plugins | `pip install llm` |
+| **Any LLM (manual)** | No tooling — just paste | Copy system prompts into ChatGPT, Claude.ai, etc. |
 
-**Option B: Ollama (local, no API key)**
-```bash
-# Install from https://ollama.ai, then:
-ollama pull llama3.2
-```
-
-**Option C: llm tool (multi-provider)**
-```bash
-pip install llm
-# Then install plugins for your provider, e.g.:
-# pip install llm-claude-3   (Anthropic)
-# pip install llm-ollama     (Ollama)
-```
-
-**Option D: Any LLM**
-Copy-paste agent system prompts as the system prompt or first message in your LLM of choice. No tooling required.
-
-### Configuring your provider
+Once you've installed your backend, tell the framework which one to use:
 
 ```bash
 cp .agent-teams.env.example .agent-teams.env
-# Edit to set AGENT_PROVIDER and AGENT_MODEL
+# Edit to set AGENT_PROVIDER (and AGENT_MODEL if needed)
 ```
 
-If no config is present, the default provider is `claude`.
+If no config is present, the scripts fall back to the `claude` CLI.
 
 ## Step 1: Pick an Agent
 

@@ -46,7 +46,7 @@ agent-teams/
 │       ├── feedback/           # Structured feedback templates
 │       └── evals/              # Performance tracking
 │
-├── skill/                      # Team-builder skill for Claude Code
+├── skill/                      # Team-builder skill for Claude Code (optional)
 │   ├── SKILL.md                # Main skill definition
 │   └── references/             # Architecture docs, domain constitutions
 │
@@ -61,7 +61,7 @@ agent-teams/
 
 ### Three Ways to Use It
 
-**1. Use an existing team.** Clone the repo, pick a team from `teams/`, and start running agents via Claude Code or any LLM. The marketing team is ready to go.
+**1. Use an existing team.** Clone the repo, pick a team from `teams/`, and run agents with `./bin/run-agent.sh`. Works with Claude, Ollama, OpenAI-compatible APIs, or paste system prompts directly into any LLM. The marketing team is ready to go.
 
 **2. Build a new team with the skill.** If you use Claude Code, install the team-builder skill from `skill/`. Then say "build me a DevOps team" and it generates the full repo structure, tailored to your domain.
 
