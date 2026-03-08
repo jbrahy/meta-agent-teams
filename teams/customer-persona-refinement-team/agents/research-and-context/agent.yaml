@@ -1,5 +1,6 @@
 name: research-and-context
 description: Researches relevant context, inputs, and supporting information for the team.
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.5
 

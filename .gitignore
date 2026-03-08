@@ -12,3 +12,6 @@ Thumbs.db
 *.tmp
 *.bak
 tmp/
+
+# Local provider config (contains API keys — never commit)
+.agent-teams.env

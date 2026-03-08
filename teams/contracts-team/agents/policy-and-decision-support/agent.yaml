@@ -1,5 +1,6 @@
 name: policy-and-decision-support
 description: Translates the available facts into structured options, tradeoffs, and cautious recommendation support.
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.5
 

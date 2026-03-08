@@ -76,12 +76,28 @@ agent-teams/
 git clone https://github.com/YOUR_USERNAME/agent-teams.git
 cd agent-teams
 
-# Run an agent (example: SDR agent from the marketing team)
-# Using Claude Code:
-claude --system-prompt teams/marketing/agents/sdr/system-prompt.md
+# Run an agent (uses your configured provider — defaults to Claude)
+./bin/run-agent.sh marketing sdr
 
-# Or paste the system prompt into any LLM conversation
+# One-shot prompt
+./bin/run-agent.sh marketing sdr "Draft a cold outreach sequence for SaaS CTOs"
+
+# Or paste the system prompt directly into any LLM conversation
+# teams/marketing/agents/sdr/system-prompt.md
 ```
+
+### Configuring your provider
+
+```bash
+# Copy the example config
+cp .agent-teams.env.example .agent-teams.env
+
+# Edit to choose your provider
+# AGENT_PROVIDER=ollama
+# AGENT_MODEL=llama3.2
+```
+
+All agents work with **Claude** (default), **Ollama** (local), **OpenAI-compatible APIs**, or **any LLM** via Simon Willison's [`llm`](https://llm.datasette.io) tool.
 
 ### Providing feedback
 
@@ -91,15 +107,11 @@ After reviewing an agent's output:
 # Copy the feedback template
 cp teams/marketing/feedback/template.md teams/marketing/feedback/$(date +%Y-%m)/$(date +%Y-%m-%d).md
 
-# Edit with your feedback
-# Then run the meta-agent to process it
-claude --system-prompt teams/marketing/meta-agent/system-prompt.md
+# Edit with your feedback, then run the full cycle:
+./bin/run-cycle.sh marketing
 
-# Run the auditor to review proposed changes
-claude --system-prompt teams/marketing/auditor/system-prompt.md
-
-# If approved, commit the changes
-git add -A && git commit -m "Cycle N: [summary of what changed and why]"
+# Or run steps individually:
+# Meta-agent processes feedback → auditor reviews → you approve → git commit
 ```
 
 ### Building a new team
@@ -213,4 +225,4 @@ Built by humans who believe AI development should be transparent, auditable, and
 - [ ] Inter-team communication protocols (agents from different teams collaborating)
 - [ ] Web UI for feedback submission and audit review
 - [ ] Agent promotion system (advisory → semi-autonomous → autonomous based on trust score)
-- [ ] Multi-model support configs (mixing different LLMs for different agent roles)
+- [x] Multi-model support: Claude, Ollama, OpenAI-compatible APIs, and llm tool

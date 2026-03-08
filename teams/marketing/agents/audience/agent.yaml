@@ -1,5 +1,6 @@
 name: audience-segmentation
 description: Develops personas, segments audiences, and adapts messaging frameworks
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.5  # Balance between analytical precision and creative persona development
 

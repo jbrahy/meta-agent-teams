@@ -1,5 +1,6 @@
 name: planning-and-coordination
 description: Creates plans, priorities, owners, and sequencing for operational execution.
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.4
 

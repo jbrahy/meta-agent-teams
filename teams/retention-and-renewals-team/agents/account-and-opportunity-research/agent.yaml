@@ -1,5 +1,6 @@
 name: account-and-opportunity-research
 description: Researches accounts, stakeholders, pipeline context, and opportunity signals to support commercial decisions.
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.5
 

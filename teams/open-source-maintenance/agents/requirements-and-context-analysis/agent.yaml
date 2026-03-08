@@ -1,5 +1,6 @@
 name: requirements-and-context-analysis
 description: Clarifies requirements, constraints, system context, and technical dependencies before work begins.
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.5
 

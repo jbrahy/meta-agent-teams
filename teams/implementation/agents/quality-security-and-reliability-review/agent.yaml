@@ -1,5 +1,6 @@
 name: quality-security-and-reliability-review
 description: Reviews outputs for correctness, quality, security, resilience, and operational soundness.
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.2
 

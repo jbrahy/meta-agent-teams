@@ -1,5 +1,6 @@
 name: documentation-and-communication-support
 description: Prepares summaries, documentation, and careful communication support based on approved direction.
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.8
 

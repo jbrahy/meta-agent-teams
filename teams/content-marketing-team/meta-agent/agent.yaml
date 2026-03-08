@@ -1,5 +1,6 @@
 name: meta-agent
 description: Interprets human feedback and evolves agent configurations
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.3
 

@@ -1,5 +1,6 @@
 name: quality-safety-and-compliance-review
 description: Reviews work for quality, safety, procedural adherence, and domain-specific compliance concerns.
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.2
 

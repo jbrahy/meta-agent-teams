@@ -1,5 +1,6 @@
 name: intake-and-diagnostics
 description: Assesses incoming work, diagnoses bottlenecks, and clarifies the operational problem to solve.
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.5
 

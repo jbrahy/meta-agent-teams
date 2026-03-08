@@ -1,5 +1,6 @@
 name: campaign-orchestrator
 description: Coordinates cross-channel campaign planning, asset requirements, and scheduling
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.4  # Structured coordination needs precision with some creative planning
 

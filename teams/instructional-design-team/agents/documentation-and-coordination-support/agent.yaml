@@ -1,5 +1,6 @@
 name: documentation-and-coordination-support
 description: Prepares structured writeups, coordination artifacts, and handoffs to support domain workflows.
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.4
 

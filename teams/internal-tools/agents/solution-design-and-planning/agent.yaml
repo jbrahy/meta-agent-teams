@@ -1,5 +1,6 @@
 name: solution-design-and-planning
 description: Designs implementation approaches, architecture options, sequencing, and technical tradeoffs.
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.4
 

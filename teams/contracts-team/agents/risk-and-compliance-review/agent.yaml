@@ -1,5 +1,6 @@
 name: risk-and-compliance-review
 description: Reviews work for risk exposure, policy alignment, consistency, and compliance concerns.
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.2
 

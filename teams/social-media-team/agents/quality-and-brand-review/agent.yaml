@@ -1,5 +1,6 @@
 name: quality-and-brand-review
 description: Reviews outputs for clarity, consistency, accuracy, tone, and fit with brand or content standards.
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.2
 

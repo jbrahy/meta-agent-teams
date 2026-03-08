@@ -1,5 +1,6 @@
 name: seo-content-strategist
 description: Researches keywords, analyzes competitors, produces content briefs for organic visibility
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.4  # Research-oriented with some strategic creativity
 

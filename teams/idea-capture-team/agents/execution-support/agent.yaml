@@ -1,5 +1,6 @@
 name: execution-support
 description: Produces structured execution support, artifacts, and follow-through guidance.
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.5
 

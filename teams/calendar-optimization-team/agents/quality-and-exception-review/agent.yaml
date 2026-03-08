@@ -1,5 +1,6 @@
 name: quality-and-exception-review
 description: Reviews plans and outputs for process quality, exception handling, and execution risk.
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.2
 

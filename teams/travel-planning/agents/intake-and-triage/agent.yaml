@@ -1,5 +1,6 @@
 name: intake-and-triage
 description: Clarifies incoming requests, identifies missing context, scopes the work, and routes tasks to the right specialist agents.
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.4
 

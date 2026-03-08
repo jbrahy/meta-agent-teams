@@ -11,7 +11,13 @@ set -euo pipefail
 #   2. Runs the meta-agent to produce an evolution proposal
 #   3. Runs the auditor to review the proposal
 #   4. Presents both to you for approval
-#   5. On approval: applies changes, updates cycle count, commits
+#   5. On approval: updates cycle count, commits
+#
+# Provider is determined by (in priority order):
+#   1. AGENT_PROVIDER env var
+#   2. .agent-teams.env in repo root
+#   3. provider field in meta-agent/agent.yaml (or auditor/agent.yaml)
+#   4. Default: claude
 # ============================================================================
 
 # --- Colors & formatting ---
@@ -44,18 +50,52 @@ ask_yn() {
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TEAMS_DIR="$(cd "${SCRIPT_DIR}/../teams" 2>/dev/null && pwd || echo "${SCRIPT_DIR}/../teams")"
+LLM_RUN="${SCRIPT_DIR}/llm-run.sh"
+
+[[ -f "$LLM_RUN" ]] || die "llm-run.sh not found at ${LLM_RUN}"
+
+# --- Simple yaml scalar extractor ---
+# Usage: yaml_get FILE KEY
+yaml_get() {
+    local file="$1" key="$2" value=""
+    value=$(grep -m1 "^${key}:" "$file" 2>/dev/null || true)
+    value="${value#*:}"
+    value="${value%%#*}"
+    value="${value//[[:space:]]/}"
+    echo "$value"
+}
+
+# --- Build llm-run args from an agent.yaml ---
+# Prints "--provider X --model Y" args if set in yaml (and not already in env)
+agent_llm_args() {
+    local yaml_file="$1"
+    local args=()
+    if [[ -f "$yaml_file" && -z "${AGENT_PROVIDER:-}" ]]; then
+        local p
+        p=$(yaml_get "$yaml_file" "provider")
+        [[ -n "$p" ]] && args+=(--provider "$p")
+    fi
+    if [[ -f "$yaml_file" && -z "${AGENT_MODEL:-}" ]]; then
+        local m
+        m=$(yaml_get "$yaml_file" "model")
+        [[ -n "$m" ]] && args+=(--model "$m")
+    fi
+    echo "${args[@]:-}"
+}
 
 usage() {
     echo "Usage: $(basename "$0") <team-slug> [feedback-file]"
     echo ""
     echo "  team-slug      Name of the team directory under teams/"
-    echo "  feedback-file   Path to specific feedback file (default: most recent)"
+    echo "  feedback-file  Path to specific feedback file (default: most recent)"
     echo ""
     echo "Runs the full evolution cycle:"
     echo "  1. Meta-agent processes feedback → evolution proposal"
     echo "  2. Auditor reviews the proposal"
     echo "  3. You approve, modify, or reject"
     echo "  4. Changes are committed to git"
+    echo ""
+    echo "Provider is set via AGENT_PROVIDER env var or .agent-teams.env"
     echo ""
     echo "Available teams:"
     if [[ -d "$TEAMS_DIR" ]]; then
@@ -74,15 +114,11 @@ TEAM_SLUG="$1"
 TEAM_DIR="${TEAMS_DIR}/${TEAM_SLUG}"
 [[ -d "$TEAM_DIR" ]] || die "Team '${TEAM_SLUG}' not found at ${TEAM_DIR}"
 
-# --- Check for claude CLI ---
-command -v claude &>/dev/null || die "claude CLI not found. Install: npm install -g @anthropic-ai/claude-code"
-
 # --- Find feedback file ---
 if [[ -n "${2:-}" ]]; then
     FEEDBACK_FILE="$2"
     [[ -f "$FEEDBACK_FILE" ]] || die "Feedback file not found: ${FEEDBACK_FILE}"
 else
-    # Find most recent feedback file (not template)
     FEEDBACK_FILE=$(find "$TEAM_DIR/feedback" -name "*.md" ! -name "template.md" -type f 2>/dev/null | sort -r | head -1)
     [[ -n "$FEEDBACK_FILE" ]] || die "No feedback files found. Run new-feedback.sh first."
 fi
@@ -113,7 +149,6 @@ echo ""
 
 section "Step 1: Meta-Agent Processing Feedback"
 
-# Build meta-agent context: system prompt + constitution + glossary + all agent prompts + feedback
 META_PROMPT=$(mktemp /tmp/meta-prompt-XXXXXX.md)
 trap "rm -f '$META_PROMPT' /tmp/audit-prompt-*.md" EXIT
 
@@ -137,7 +172,6 @@ $(cat "$TEAM_DIR/shared/glossary.md")
 
 CTXEOF
 
-# Add all agent prompts and configs
 for agent_dir in "$TEAM_DIR/agents"/*/; do
     [[ -d "$agent_dir" ]] || continue
     agent_name=$(basename "$agent_dir")
@@ -157,7 +191,6 @@ $(cat "$agent_dir/CHANGELOG.md" 2>/dev/null || echo "(no changelog)")
 AGENTCTX
 done
 
-# Add eval scores if they exist
 if [[ -f "$TEAM_DIR/evals/baseline-scores.json" ]]; then
     cat >> "$META_PROMPT" << EVALCTX
 
@@ -170,26 +203,25 @@ $(cat "$TEAM_DIR/evals/baseline-scores.json")
 EVALCTX
 fi
 
-# The feedback itself becomes the user prompt
 FEEDBACK_CONTENT=$(cat "$FEEDBACK_FILE")
+EVOLUTION_PROPOSAL="${CYCLE_DIR}/evolution-proposal.md"
+
+# Resolve provider/model args from meta-agent yaml
+read -ra META_LLM_ARGS <<< "$(agent_llm_args "$TEAM_DIR/meta-agent/agent.yaml")"
 
 info "Sending feedback to meta-agent..."
 echo ""
 
-EVOLUTION_PROPOSAL="${CYCLE_DIR}/evolution-proposal.md"
-
-claude --system-prompt "$META_PROMPT" \
+"$LLM_RUN" \
+    --system-file "$META_PROMPT" \
     --prompt "Process this feedback for Cycle ${CYCLE}. Follow your output format exactly.
 
 ${FEEDBACK_CONTENT}" \
-    --output-file "$EVOLUTION_PROPOSAL" 2>/dev/null \
-    || claude --system-prompt "$META_PROMPT" \
-        -p "Process this feedback for Cycle ${CYCLE}. Follow your output format exactly.
-
-${FEEDBACK_CONTENT}" > "$EVOLUTION_PROPOSAL"
+    "${META_LLM_ARGS[@]}" \
+    > "$EVOLUTION_PROPOSAL"
 
 if [[ ! -s "$EVOLUTION_PROPOSAL" ]]; then
-    die "Meta-agent produced no output. Check your claude CLI configuration."
+    die "Meta-agent produced no output. Check your provider configuration."
 fi
 
 success "Evolution proposal saved: ${EVOLUTION_PROPOSAL#${TEAM_DIR}/}"
@@ -224,7 +256,6 @@ $(cat "$TEAM_DIR/evals/baseline-scores.json" 2>/dev/null || echo "{}")
 
 AUDITCTX
 
-# Add current agent prompts for comparison
 for agent_dir in "$TEAM_DIR/agents"/*/; do
     [[ -d "$agent_dir" ]] || continue
     agent_name=$(basename "$agent_dir")
@@ -238,10 +269,14 @@ done
 
 AUDIT_REPORT="${CYCLE_DIR}/audit-report.md"
 
+# Resolve provider/model args from auditor yaml
+read -ra AUDIT_LLM_ARGS <<< "$(agent_llm_args "$TEAM_DIR/auditor/agent.yaml")"
+
 info "Sending proposal to auditor..."
 echo ""
 
-claude --system-prompt "$AUDIT_PROMPT" \
+"$LLM_RUN" \
+    --system-file "$AUDIT_PROMPT" \
     --prompt "Review this evolution proposal for Cycle ${CYCLE}. The original feedback and the meta-agent's proposed changes are below. Follow your output format exactly.
 
 ## Original Feedback
@@ -251,17 +286,8 @@ ${FEEDBACK_CONTENT}
 ## Meta-Agent Evolution Proposal
 
 $(cat "$EVOLUTION_PROPOSAL")" \
-    --output-file "$AUDIT_REPORT" 2>/dev/null \
-    || claude --system-prompt "$AUDIT_PROMPT" \
-        -p "Review this evolution proposal for Cycle ${CYCLE}. The original feedback and the meta-agent's proposed changes are below. Follow your output format exactly.
-
-## Original Feedback
-
-${FEEDBACK_CONTENT}
-
-## Meta-Agent Evolution Proposal
-
-$(cat "$EVOLUTION_PROPOSAL")" > "$AUDIT_REPORT"
+    "${AUDIT_LLM_ARGS[@]}" \
+    > "$AUDIT_REPORT"
 
 if [[ ! -s "$AUDIT_REPORT" ]]; then
     warn "Auditor produced no output. Proceeding with proposal review only."
@@ -279,16 +305,13 @@ echo -e "${BOLD}Evolution Proposal:${NC} ${EVOLUTION_PROPOSAL}"
 echo -e "${BOLD}Audit Report:${NC}      ${AUDIT_REPORT}"
 echo ""
 
-# Show summary if audit report exists
 if [[ -s "$AUDIT_REPORT" ]]; then
-    # Extract the summary line
     summary=$(grep -A1 "^## Summary" "$AUDIT_REPORT" 2>/dev/null | tail -1 || echo "")
     if [[ -n "$summary" ]]; then
         echo -e "${BOLD}Auditor Summary:${NC} ${summary}"
         echo ""
     fi
 
-    # Show pass/flag status lines
     grep -E "^## (Constitutional|Feedback|Drift|Regression|Coherence|Change)" "$AUDIT_REPORT" 2>/dev/null | while read -r line; do
         if [[ "$line" == *"PASS"* || "$line" == *"LOW"* || "$line" == *"STABLE"* || "$line" == *"COHERENT"* || "$line" == *"WITHIN"* ]]; then
             echo -e "  ${GREEN}${line#\#\# }${NC}"
@@ -318,10 +341,9 @@ case "${decision,,}" in
         info "Recommended approach:"
         echo -e "  1. Read ${CYAN}${EVOLUTION_PROPOSAL#${TEAM_DIR}/}${NC}"
         echo -e "  2. Apply changes to the relevant agent files"
-        echo -e "  3. Run: ${DIM}$(basename "$0" .sh)/../update-scores.sh ${TEAM_SLUG} ${CYCLE}${NC}"
+        echo -e "  3. Run: ${DIM}./update-scores.sh ${TEAM_SLUG} ${CYCLE}${NC}"
         echo ""
 
-        # Update cycle count in baseline-scores.json
         if [[ -f "$TEAM_DIR/evals/baseline-scores.json" ]] && command -v python3 &>/dev/null; then
             python3 << PYEOF
 import json
@@ -336,7 +358,6 @@ PYEOF
             success "Updated cycle count to ${CYCLE}"
         fi
 
-        # Git commit if in a repo
         if git -C "$TEAM_DIR" rev-parse --is-inside-work-tree &>/dev/null; then
             if ask_yn "Commit cycle ${CYCLE} to git?" "y"; then
                 prompt "Commit message [Cycle ${CYCLE}: evolution applied]: "
@@ -368,8 +389,6 @@ PYEOF
         info "Proposal and audit report preserved at:"
         echo -e "  ${CYAN}${CYCLE_DIR#${TEAM_DIR}/}/${NC}"
         info "No changes applied. Feedback remains for the next cycle."
-
-        # Mark as rejected
         echo "REJECTED — $(date +%Y-%m-%d)" > "${CYCLE_DIR}/REJECTED"
         ;;
     *)

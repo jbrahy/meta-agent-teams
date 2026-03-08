@@ -1,5 +1,6 @@
 name: implementation-and-delivery-support
 description: Turns approved plans into execution-ready tasks, deliverables, and implementation guidance.
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.4
 

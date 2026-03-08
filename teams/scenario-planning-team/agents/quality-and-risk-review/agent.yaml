@@ -1,5 +1,6 @@
 name: quality-and-risk-review
 description: Reviews outputs for completeness, correctness, quality, and risk.
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.2
 

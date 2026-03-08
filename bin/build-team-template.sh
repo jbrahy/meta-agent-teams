@@ -412,20 +412,25 @@ $(for i in "${!AGENTS[@]}"; do echo "- **${AGENTS[$i]}** — ${AGENT_DESCRIPTION
 ## Getting Started
 
 \`\`\`bash
-# Run an agent
-claude --system-prompt agents/${AGENTS[0]}/system-prompt.md
+# Run an agent (uses provider from .agent-teams.env or AGENT_PROVIDER env var)
+../../bin/run-agent.sh ${TEAM_SLUG} ${AGENTS[0]}
+
+# Or paste the system prompt directly into any LLM
+# agents/${AGENTS[0]}/system-prompt.md
 
 # Provide feedback
 cp feedback/template.md feedback/\$(date +%Y-%m)/\$(date +%Y-%m-%d).md
 
-# Process feedback with the meta-agent
-claude --system-prompt meta-agent/system-prompt.md
+# Run a full feedback cycle (meta-agent + auditor + commit)
+../../bin/run-cycle.sh ${TEAM_SLUG}
+\`\`\`
 
-# Audit proposed changes
-claude --system-prompt auditor/system-prompt.md
+### Switching providers
 
-# Commit approved changes
-git add -A && git commit -m "Cycle N: [summary]"
+Copy \`.agent-teams.env.example\` to \`.agent-teams.env\` at the repo root and set:
+\`\`\`bash
+AGENT_PROVIDER=ollama   # or: claude, llm, openai
+AGENT_MODEL=llama3.2
 \`\`\`
 READMEEOF
 
@@ -635,7 +640,8 @@ METAEOF
 cat > "$TEAM_DIR/meta-agent/agent.yaml" << METAYAMLEOF
 name: meta-agent
 description: Interprets human feedback and evolves agent configurations
-model: claude-sonnet-4-20250514
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
+model: claude-sonnet-4-5
 temperature: 0.3
 
 context_sources:
@@ -755,7 +761,8 @@ AUDITEOF
 cat > "$TEAM_DIR/auditor/agent.yaml" << AUDITYAMLEOF
 name: auditor
 description: Independent reviewer of meta-agent evolution decisions
-model: claude-sonnet-4-20250514
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
+model: claude-sonnet-4-5
 temperature: 0.2
 
 context_sources:
@@ -880,7 +887,8 @@ AGENTEOF
     cat > "$TEAM_DIR/agents/$agent/agent.yaml" << AGENTYAMLEOF
 name: ${agent}
 description: ${desc}
-model: claude-sonnet-4-20250514
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
+model: claude-sonnet-4-5
 temperature: ${temp}
 
 context_sources:
@@ -1022,7 +1030,9 @@ echo -e "  1. Review and customize the ${YELLOW}TODO${NC} sections in each agent
 echo -e "  2. Add domain-specific terms to ${CYAN}shared/glossary.md${NC}"
 echo -e "  3. Review the constitution at ${CYAN}shared/constitution.md${NC}"
 echo -e "  4. Run your first agent:"
-echo -e "     ${DIM}claude --system-prompt ${TEAM_DIR}/agents/${AGENTS[0]}/system-prompt.md${NC}"
-echo -e "  5. Record feedback and start the improvement cycle"
+echo -e "     ${DIM}./bin/run-agent.sh ${TEAM_SLUG} ${AGENTS[0]}${NC}"
+echo -e "  5. To switch providers, copy .agent-teams.env.example to .agent-teams.env"
+echo -e "  6. Record feedback and start the improvement cycle:"
+echo -e "     ${DIM}./bin/run-cycle.sh ${TEAM_SLUG}${NC}"
 echo ""
 echo -e "${GREEN}Happy building.${NC}"

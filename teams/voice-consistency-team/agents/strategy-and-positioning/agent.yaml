@@ -1,5 +1,6 @@
 name: strategy-and-positioning
 description: Turns research into messaging strategy, prioritization, positioning, and campaign direction.
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.4
 

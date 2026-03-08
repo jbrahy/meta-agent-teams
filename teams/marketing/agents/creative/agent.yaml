@@ -1,5 +1,6 @@
 name: creative-multimedia
 description: Develops creative briefs, video concepts, and visual direction
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.8  # Creative work needs high creativity
 

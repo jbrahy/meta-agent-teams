@@ -1,5 +1,6 @@
 name: audience-and-insight-research
 description: Researches audience needs, market signals, competitive context, and supporting inputs for messaging decisions.
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.5
 

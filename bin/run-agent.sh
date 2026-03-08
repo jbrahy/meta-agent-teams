@@ -7,8 +7,14 @@ set -euo pipefail
 # Usage: ./run-agent.sh <team-slug> <agent-name> [prompt]
 #
 # Loads the agent's system prompt plus all context_sources from agent.yaml,
-# then invokes claude with everything wired up. If no prompt is given,
-# drops you into an interactive session.
+# then invokes the configured LLM with everything wired up. If no prompt is
+# given, drops you into an interactive session.
+#
+# Provider is determined by (in priority order):
+#   1. AGENT_PROVIDER env var
+#   2. .agent-teams.env file in repo root
+#   3. provider field in agent.yaml
+#   4. Default: claude
 # ============================================================================
 
 # --- Colors & formatting ---
@@ -30,6 +36,9 @@ die()     { echo -e "${RED}✗ $1${NC}" >&2; exit 1; }
 # --- Resolve paths ---
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TEAMS_DIR="$(cd "${SCRIPT_DIR}/../teams" 2>/dev/null && pwd || echo "${SCRIPT_DIR}/../teams")"
+LLM_RUN="${SCRIPT_DIR}/llm-run.sh"
+
+[[ -f "$LLM_RUN" ]] || die "llm-run.sh not found at ${LLM_RUN}"
 
 # --- Usage ---
 usage() {
@@ -38,6 +47,9 @@ usage() {
     echo "  team-slug   Name of the team directory under teams/"
     echo "  agent-name  Name of the agent (or 'meta-agent' or 'auditor')"
     echo "  prompt      Optional one-shot prompt. Omit for interactive session."
+    echo ""
+    echo "Provider is set via AGENT_PROVIDER env var or .agent-teams.env"
+    echo "Default provider: claude"
     echo ""
     echo "Examples:"
     echo "  $(basename "$0") devops incident-response"
@@ -74,15 +86,33 @@ else
     AGENT_DIR="${TEAM_DIR}/agents/${AGENT_NAME}"
 fi
 
-[[ -d "$AGENT_DIR" ]] || die "Agent '${AGENT_NAME}' not found at ${AGENT_DIR}"
+[[ -d "$AGENT_DIR" ]]              || die "Agent '${AGENT_NAME}' not found at ${AGENT_DIR}"
 [[ -f "$AGENT_DIR/system-prompt.md" ]] || die "No system-prompt.md found in ${AGENT_DIR}"
 
-# --- Parse context sources from agent.yaml ---
+# --- Parse agent.yaml (context_sources, provider, model) ---
 CONTEXT_FILES=()
+AGENT_PROVIDER=""
+AGENT_MODEL_YAML=""
+
 if [[ -f "$AGENT_DIR/agent.yaml" ]]; then
-    # Extract context_sources list from yaml (simple parser — handles "  - path" lines)
     in_context=false
     while IFS= read -r line; do
+        # Top-level scalar fields (before any block keys)
+        if [[ "$line" =~ ^provider:[[:space:]]*(.*) ]]; then
+            AGENT_PROVIDER="${BASH_REMATCH[1]}"
+            # Strip inline comments
+            AGENT_PROVIDER="${AGENT_PROVIDER%%#*}"
+            AGENT_PROVIDER="${AGENT_PROVIDER//[[:space:]]/}"
+            in_context=false
+            continue
+        fi
+        if [[ "$line" =~ ^model:[[:space:]]*(.*) ]]; then
+            AGENT_MODEL_YAML="${BASH_REMATCH[1]}"
+            AGENT_MODEL_YAML="${AGENT_MODEL_YAML%%#*}"
+            AGENT_MODEL_YAML="${AGENT_MODEL_YAML//[[:space:]]/}"
+            in_context=false
+            continue
+        fi
         if [[ "$line" =~ ^context_sources: ]]; then
             in_context=true
             continue
@@ -90,12 +120,13 @@ if [[ -f "$AGENT_DIR/agent.yaml" ]]; then
         if $in_context; then
             if [[ "$line" =~ ^[[:space:]]*-[[:space:]]+(.*) ]]; then
                 src="${BASH_REMATCH[1]}"
-                # Resolve relative to team dir
+                # Strip inline comments
+                src="${src%%#*}"
+                src="${src//[[:space:]]/}"
                 full_path="${TEAM_DIR}/${src}"
                 if [[ -f "$full_path" ]]; then
                     CONTEXT_FILES+=("$full_path")
                 elif [[ -d "$full_path" ]]; then
-                    # For directories (like feedback/), grab most recent files
                     while IFS= read -r f; do
                         CONTEXT_FILES+=("$f")
                     done < <(find "$full_path" -name "*.md" -o -name "*.json" | sort -r | head -10)
@@ -111,28 +142,36 @@ fi
 COMBINED_PROMPT=$(mktemp /tmp/agent-prompt-XXXXXX.md)
 trap "rm -f '$COMBINED_PROMPT'" EXIT
 
-# Start with the agent's own system prompt
 cat "$AGENT_DIR/system-prompt.md" > "$COMBINED_PROMPT"
 
-# Append context sources
 if [[ ${#CONTEXT_FILES[@]} -gt 0 ]]; then
-    echo "" >> "$COMBINED_PROMPT"
-    echo "---" >> "$COMBINED_PROMPT"
-    echo "" >> "$COMBINED_PROMPT"
+    echo ""          >> "$COMBINED_PROMPT"
+    echo "---"       >> "$COMBINED_PROMPT"
+    echo ""          >> "$COMBINED_PROMPT"
     echo "# Context" >> "$COMBINED_PROMPT"
-    echo "" >> "$COMBINED_PROMPT"
+    echo ""          >> "$COMBINED_PROMPT"
     for ctx in "${CONTEXT_FILES[@]}"; do
         rel_path="${ctx#${TEAM_DIR}/}"
         echo "## ${rel_path}" >> "$COMBINED_PROMPT"
-        echo "" >> "$COMBINED_PROMPT"
-        cat "$ctx" >> "$COMBINED_PROMPT"
-        echo "" >> "$COMBINED_PROMPT"
+        echo ""               >> "$COMBINED_PROMPT"
+        cat "$ctx"            >> "$COMBINED_PROMPT"
+        echo ""               >> "$COMBINED_PROMPT"
     done
 fi
 
+# --- Resolve provider and model (CLI env > .env file > agent.yaml) ---
+# llm-run.sh handles the .env file and AGENT_PROVIDER env var.
+# We pass agent.yaml values as fallbacks only when not already set by env.
+PROVIDER_ARGS=()
+[[ -n "$AGENT_PROVIDER" && -z "${AGENT_PROVIDER_ENV:-}" ]] && \
+    PROVIDER_ARGS=(--provider "$AGENT_PROVIDER")
+MODEL_ARGS=()
+[[ -n "$AGENT_MODEL_YAML" && -z "${AGENT_MODEL:-}" ]] && \
+    MODEL_ARGS=(--model "$AGENT_MODEL_YAML")
+
 # --- Display info ---
 header "Running: ${AGENT_NAME}"
-info "Team: ${TEAM_SLUG}"
+info "Team:          ${TEAM_SLUG}"
 info "System prompt: ${AGENT_DIR}/system-prompt.md"
 if [[ ${#CONTEXT_FILES[@]} -gt 0 ]]; then
     info "Context loaded (${#CONTEXT_FILES[@]} files):"
@@ -142,18 +181,21 @@ if [[ ${#CONTEXT_FILES[@]} -gt 0 ]]; then
 fi
 echo ""
 
-# --- Check for claude CLI ---
-if ! command -v claude &>/dev/null; then
-    die "claude CLI not found. Install it: npm install -g @anthropic-ai/claude-code"
-fi
-
 # --- Run ---
 if [[ -n "$PROMPT" ]]; then
     info "Mode: one-shot"
     echo ""
-    claude --system-prompt "$COMBINED_PROMPT" --prompt "$PROMPT"
+    "$LLM_RUN" \
+        --system-file "$COMBINED_PROMPT" \
+        --prompt      "$PROMPT" \
+        "${PROVIDER_ARGS[@]}" \
+        "${MODEL_ARGS[@]}"
 else
     info "Mode: interactive (Ctrl+C to exit)"
     echo ""
-    claude --system-prompt "$COMBINED_PROMPT"
+    "$LLM_RUN" \
+        --system-file "$COMBINED_PROMPT" \
+        --interactive \
+        "${PROVIDER_ARGS[@]}" \
+        "${MODEL_ARGS[@]}"
 fi

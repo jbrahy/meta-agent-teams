@@ -1,5 +1,6 @@
 name: deal-strategy-and-prioritization
 description: Recommends opportunity prioritization, deal strategy, next steps, and tradeoffs.
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.4
 

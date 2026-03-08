@@ -1,5 +1,6 @@
 name: content-and-campaign-production
 description: Produces structured deliverables, drafts, outlines, and execution support for campaigns and content workflows.
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.8
 

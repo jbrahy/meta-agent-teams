@@ -1,5 +1,6 @@
 name: content-generation
 description: Produces marketing copy, social posts, blog content adapted to channel and persona
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.8  # Highest creativity setting — copy needs to be original
 

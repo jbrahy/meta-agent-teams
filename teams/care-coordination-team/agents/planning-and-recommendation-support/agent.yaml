@@ -1,5 +1,6 @@
 name: planning-and-recommendation-support
 description: Builds structured options, plans, and recommendations from the available evidence and constraints.
+provider: anthropic  # anthropic | llm | ollama | openai — override in .agent-teams.env
 model: claude-sonnet-4-20250514
 temperature: 0.4
 
